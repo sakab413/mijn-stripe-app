@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI Bank Proxy</title>
+    <title>AI Discount Engine</title>
     <style>
-        body { font-family: sans-serif; background: #f0f2f5; text-align: center; padding-top: 50px; }
-        .card { background: white; padding: 30px; border-radius: 15px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; }
-        .step { margin-bottom: 30px; padding: 15px; border: 1px solid #eee; border-radius: 10px; }
-        .badge { background: #6772e5; color: white; padding: 4px 8px; border-radius: 4px; font-size: 10px; }
-        button { width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
-        .btn-link { background: #6772e5; color: white; }
-        .btn-buy { background: #24b47e; color: white; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; text-align: center; padding-top: 50px; }
+        .container { background: white; padding: 30px; border-radius: 15px; display: inline-block; box-shadow: 0 4px 20px rgba(0,0,0,0.08); width: 380px; }
+        .step-box { border: 2px solid #eef0f2; padding: 15px; border-radius: 12px; margin-bottom: 20px; text-align: left; }
+        button { width: 100%; padding: 12px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 15px; }
+        .btn-setup { background: #6772e5; color: white; }
+        .btn-auto { background: #000; color: #00ff88; border: 1px solid #00ff88; }
     </style>
 </head>
 <body>
-    <div class="card">
-        <h2>AI Transactie App</h2>
+    <div class="container">
+        <h2>AI Payment Dashboard</h2>
         
-        <div class="step">
-            <span class="badge">STAP 1: NU</span>
-            <p>Koppel je bankrekening éénmalig.</p>
+        <div class="step-box">
+            <p><strong>1. Bank koppelen</strong></p>
             <form action="/create-checkout-session" method="POST">
-                <button type="submit" class="btn-link">🔗 Koppel Bankrekening</button>
+                <input type="hidden" name="type" value="setup">
+                <button type="submit" class="btn-setup">🔗 Koppel Bankrekening</button>
             </form>
         </div>
 
-        <div class="step" style="background: #f9f9f9;">
-            <span class="badge" style="background: #24b47e;">STAP 2: LATER</span>
-            <p>Automatische transactie met korting bij aankoop.</p>
+        <div class="step-box" style="background: #fafafa;">
+            <p><strong>2. AI Transactie (Simulatie)</strong></p>
             <form action="/create-checkout-session" method="POST">
-                <button type="submit" class="btn-buy">🛍️ Simuleer Aankoop (€50 -> €45)</button>
+                <input type="hidden" name="type" value="simulation">
+                <button type="submit" class="btn-auto">🤖 Voer AI-Korting uit</button>
             </form>
         </div>
     </div>
