@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mijn AI Webshop</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; }
+        .card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
+        button { background-color: #6772e5; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 16px; transition: 0.3s; }
+        button:hover { background-color: #5469d4; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Product Kopen</h1>
+        <p>Klik op de knop om je bank te koppelen en te betalen.</p>
+        <form action="/create-checkout-session" method="POST">
+            <button type="submit">Koppel bankrekening & Betaal €10</button>
+        </form>
+    </div>
+</body>
+</html>
