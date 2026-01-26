@@ -2,9 +2,7 @@ import stripe
 import os
 from flask import Flask, render_template, redirect, jsonify, request
 
-# Haal de Stripe key uit de Environment Variables van Render
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
-
 app = Flask(__name__, template_folder='templates')
 
 @app.route('/')
@@ -13,7 +11,6 @@ def index():
 
 @app.route('/scan')
 def scan():
-    # Deze route laat de "stille" AI-detectie zien voor je demo
     return render_template('scan.html')
 
 @app.route('/create-checkout-session', methods=['POST'])
@@ -21,31 +18,11 @@ def create_checkout_session():
     try:
         base_url = request.host_url.rstrip('/')
         session_type = request.form.get('type')
-
-        if session_type == 'simulation':
-            # Bedrag met €5,- AI korting (van €50 naar €45)
-            price = 4500
-            name = "Automatische AI Transactie"
-            description = "Gedetecteerde aankoop: €50,00 | Toegepaste korting: €5,00"
-        else:
-            # Jouw winst/service fee
-            price = 1000
-            name = "Bankkoppeling & Service Fee"
-            description = "Eenmalige activatie van de AI Discount Engine"
+        price, name = (4500, "AI Korting Transactie") if session_type == 'simulation' else (1000, "Bankkoppeling Fee")
 
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['ideal', 'card'],
-            line_items=[{
-                'price_data': {
-                    'currency': 'eur',
-                    'product_data': {
-                        'name': name,
-                        'description': description,
-                    },
-                    'unit_amount': price,
-                },
-                'quantity': 1,
-            }],
+            line_items=[{'price_data': {'currency': 'eur', 'product_data': {'name': name}, 'unit_amount': price}, 'quantity': 1}],
             mode='payment',
             success_url=f"{base_url}/success",
             cancel_url=f"{base_url}/cancel",
@@ -56,9 +33,12 @@ def create_checkout_session():
 
 @app.route('/success')
 def success():
-    return """
-    <div style="font-family:sans-serif; text-align:center; margin-top:100px;">
-        <h1 style="color: #24b47e; font-size: 50px;">✅</h1>
-        <h2>Transactie Geslaagd!</h2>
-        <p>De AI heeft de betaling succesvol verwerkt.</p>
-        <a href="/" style="color: #6772e5; text-decoration: none;
+    return "<html><body style='text-align:center;padding-top:50px;'><h1>✅ Geslaagd</h1><a href='/'>Terug</a></body></html>"
+
+@app.route('/cancel')
+def cancel():
+    return "<h1>❌ Geannuleerd</h1><a href='/'>Terug</a>"
+
+if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
