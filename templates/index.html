@@ -1,23 +1,36 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mijn AI Webshop</title>
+    <title>AI Bank Proxy</title>
     <style>
-        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; }
-        .card { background: white; padding: 2rem; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); text-align: center; }
-        button { background-color: #6772e5; color: white; border: none; padding: 12px 24px; border-radius: 5px; cursor: pointer; font-size: 16px; transition: 0.3s; }
-        button:hover { background-color: #5469d4; }
+        body { font-family: sans-serif; background: #f0f2f5; text-align: center; padding-top: 50px; }
+        .card { background: white; padding: 30px; border-radius: 15px; display: inline-block; box-shadow: 0 4px 15px rgba(0,0,0,0.1); width: 350px; }
+        .step { margin-bottom: 30px; padding: 15px; border: 1px solid #eee; border-radius: 10px; }
+        .badge { background: #6772e5; color: white; padding: 4px 8px; border-radius: 4px; font-size: 10px; }
+        button { width: 100%; padding: 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        .btn-link { background: #6772e5; color: white; }
+        .btn-buy { background: #24b47e; color: white; }
     </style>
 </head>
 <body>
     <div class="card">
-        <h1>Product Kopen</h1>
-        <p>Klik op de knop om je bank te koppelen en te betalen.</p>
-        <form action="/create-checkout-session" method="POST">
-            <button type="submit">Koppel bankrekening & Betaal €10</button>
-        </form>
+        <h2>AI Transactie App</h2>
+        
+        <div class="step">
+            <span class="badge">STAP 1: NU</span>
+            <p>Koppel je bankrekening éénmalig.</p>
+            <form action="/create-checkout-session" method="POST">
+                <button type="submit" class="btn-link">🔗 Koppel Bankrekening</button>
+            </form>
+        </div>
+
+        <div class="step" style="background: #f9f9f9;">
+            <span class="badge" style="background: #24b47e;">STAP 2: LATER</span>
+            <p>Automatische transactie met korting bij aankoop.</p>
+            <form action="/create-checkout-session" method="POST">
+                <button type="submit" class="btn-buy">🛍️ Simuleer Aankoop (€50 -> €45)</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
