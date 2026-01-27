@@ -8,9 +8,9 @@
         .status-bar { background: #334155; padding: 10px; border-radius: 10px; margin-bottom: 30px; font-size: 14px; color: #94a3b8; }
         .status-dot { height: 10px; width: 10px; background-color: #ef4444; border-radius: 50%; display: inline-block; margin-right: 5px; }
         .action-card { background: #2d3748; padding: 25px; border-radius: 16px; margin-bottom: 20px; text-align: left; border: 1px solid #4a5568; }
-        .btn-primary { width: 100%; padding: 15px; border: none; border-radius: 12px; background: #3b82f6; color: white; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .btn-primary { width: 100%; padding: 15px; border: none; border-radius: 12px; background: #3b82f6; color: white; font-weight: bold; cursor: pointer; }
         .btn-magic { width: 100%; padding: 15px; background: #10b981; color: white; border-radius: 12px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center; border: 2px solid #059669; }
-        .hint { display: none; background: #1e293b; color: #10b981; padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 14px; border: 1px solid #10b981; }
+        .hint { display: none; background: #1e293b; color: #10b981; padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 13px; border: 1px solid #10b981; }
     </style>
 </head>
 <body>
@@ -28,7 +28,7 @@
 
         <div class="action-card" style="border: 2px solid #10b981;">
             <h3>2. Kortingsknop Toevoegen</h3>
-            <p>Klik op de knop hieronder en druk daarna op <b>Ctrl+D</b> om EasyCashBack in je browser op te slaan.</p>
+            <p>Klik op de knop en druk daarna op <b>Ctrl+D</b> om de AI in je browser op te slaan.</p>
             <a href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();" 
                class="btn-magic" onclick="showHint()">🚀 EasyCashBack Activeren</a>
             <div id="hint-box" class="hint">
