@@ -15,28 +15,25 @@ def scan():
 
 @app.route('/checkout_preview')
 def checkout_preview():
-    # Dit is de pagina die het bonnetje laat zien
     return render_template('checkout_preview.html')
+
+# De pagina waar de gebruiker "terugkeert" in de webshop
+@app.route('/webshop_success')
+def webshop_success():
+    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;background:#f8f9fa;'> <div style='display:inline-block;background:white;padding:50px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.05);'> <h1 style='color:#10b981;'>🛒 Terug in de Webshop</h1> <p>De EasyCashBack korting van <b>€5,00</b> is succesvol toegepast op je winkelmandje!</p> <div style='background:#eee;padding:20px;border-radius:10px;margin:20px 0;'>Nieuw totaal: <b>€45,00</b></div> <button style='padding:15px 30px;background:#333;color:white;border:none;border-radius:10px;'>Reken nu af</button> <br><br><a href='/' style='color:#94a3b8;'>Terug naar EasyCashBack Dashboard</a> </div> </body></html>"
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:
         base_url = request.host_url.rstrip('/')
-        session_type = request.form.get('type')
-
-        # Alleen als we op het bonnetje op 'Bevestig' klikken, gaan we naar de 45 euro betaling
-        if session_type == 'simulation_final':
-            price, name = 4500, "EasyCashBack: Winkelmandje Betaling"
-        else:
-            price, name = 1000, "EasyCashBack Account Activatie"
-
+        # Hier gebruiken we Stripe nu ALLEEN voor de activatie fee
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['ideal', 'card'],
             line_items=[{
                 'price_data': {
                     'currency': 'eur',
-                    'product_data': {'name': name},
-                    'unit_amount': price,
+                    'product_data': {'name': "EasyCashBack Activatie"},
+                    'unit_amount': 1000,
                 },
                 'quantity': 1,
             }],
@@ -50,7 +47,7 @@ def create_checkout_session():
 
 @app.route('/success')
 def success():
-    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ EasyCashBack Voltooid</h1><a href='/'>Terug naar Dashboard</a></body></html>"
+    return "<h1>✅ Account Geactiveerd</h1><a href='/'>Terug naar Dashboard</a>"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
