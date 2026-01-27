@@ -3,32 +3,35 @@
 <head>
     <title>EasyCashBack Engine</title>
     <style>
-        body { margin: 0; font-family: sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .ai-card { background: white; width: 340px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); padding: 30px; border-top: 6px solid #10b981; text-align: center; }
-        .spinner { border: 4px solid #f3f3f3; border-top: 4px solid #10b981; border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        body { margin: 0; font-family: sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        .ai-card { background: #1e293b; width: 360px; border-radius: 24px; padding: 40px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border-top: 6px solid #10b981; }
+        .spinner { border: 4px solid #334155; border-top: 4px solid #10b981; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 25px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .log { font-family: monospace; font-size: 13px; color: #666; text-align: left; }
+        .log { font-family: monospace; font-size: 13px; color: #94a3b8; text-align: left; line-height: 1.6; }
     </style>
-    <script>
-        window.onload = function() {
-            setTimeout(() => { document.getElementById('l1').innerHTML = "> Winkelwagen gedetecteerd..."; }, 1000);
-            setTimeout(() => { document.getElementById('l2').innerHTML = "> AI zoekt naar cashback..."; }, 2000);
-            setTimeout(() => { document.getElementById('l3').innerHTML = "> Korting gevonden: €5,00"; document.getElementById('l3').style.color="#10b981"; }, 3000);
-            
-            // STUURT DOOR NAAR BONNETJE
-            setTimeout(() => { window.location.href = "/checkout_preview"; }, 4500);
-        }
-    </script>
 </head>
 <body>
     <div class="ai-card">
         <div class="spinner"></div>
-        <h3>EasyCashBack Engine</h3>
+        <h2 id="headline">Analyzing Shop...</h2>
         <div class="log">
-            <div id="l1">> Scannen...</div>
-            <div id="l2">> Retailer check...</div>
-            <div id="l3">> Database check...</div>
+            <div id="l1">> Connecting to browser metadata...</div>
+            <div id="l2">> Scraping price data...</div>
+            <div id="l3">> Checking AI database...</div>
         </div>
     </div>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const ref = urlParams.get('ref') || "Webshop";
+        let domain = "Winkel";
+        try { domain = new URL(ref).hostname; } catch(e) {}
+
+        document.getElementById('headline').innerText = domain;
+
+        setTimeout(() => { document.getElementById('l1').innerHTML = "> Verbonden met " + domain; }, 1000);
+        setTimeout(() => { document.getElementById('l2').innerHTML = "> Prijs van €50,00 gedetecteerd op " + domain; }, 2000);
+        setTimeout(() => { document.getElementById('l3').innerHTML = "> <b>Korting van €5,00 gevonden!</b>"; document.getElementById('l3').style.color="#10b981"; }, 3000);
+        setTimeout(() => { window.location.href = "/checkout_preview"; }, 4500);
+    </script>
 </body>
 </html>
