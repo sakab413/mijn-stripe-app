@@ -1,9 +1,60 @@
-<div class="action-card" style="border: 2px solid #3b82f6; background: rgba(59, 130, 246, 0.05);">
-    <h3 style="color: #3b82f6;">Auto-Apply Simulation</h3>
-    <p>Test hoe de AI op een externe webshop automatisch kortingscodes test en de betaling afhandelt.</p>
-    <form action="/scan" method="GET">
-        <button type="submit" class="btn-outline" style="border-color: #3b82f6; color: #3b82f6;">
-            Start "Honey" Style Checkout
-        </button>
-    </form>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Proxy Wallet</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: white; text-align: center; padding: 50px 20px; }
+        .dashboard { background: #1e293b; padding: 40px; border-radius: 24px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .status-bar { background: #334155; padding: 10px; border-radius: 10px; margin-bottom: 30px; font-size: 14px; color: #94a3b8; }
+        .status-dot { height: 10px; width: 10px; background-color: #22c55e; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        
+        .savings-grid { display: flex; justify-content: space-around; margin-bottom: 25px; background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px; }
+        .save-val { font-size: 24px; font-weight: bold; color: #10b981; }
+        .save-label { font-size: 11px; color: #94a3b8; text-transform: uppercase; }
+
+        .action-card { background: #2d3748; padding: 20px; border-radius: 16px; margin-bottom: 20px; text-align: left; border: 1px solid #4a5568; }
+        button { width: 100%; padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 16px; transition: 0.3s; }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-honey { background: transparent; color: #3b82f6; border: 2px solid #3b82f6; margin-top: 10px; }
+        .btn-honey:hover { background: #3b82f6; color: white; }
+        
+        h3 { margin-top: 0; color: #f8fafc; }
+        p { font-size: 14px; color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="status-bar">
+            <span class="status-dot"></span> AI Engine: Monitoring Web Traffic
+        </div>
+
+        <div class="savings-grid">
+            <div>
+                <div class="save-val">€142,50</div>
+                <div class="save-label">Bespaard</div>
+            </div>
+            <div>
+                <div class="save-val" style="color: #3b82f6;">12</div>
+                <div class="save-label">AI Deals</div>
+            </div>
+        </div>
+        
+        <div class="action-card">
+            <h3>Bank Connection</h3>
+            <p>Status: <span style="color: #10b981;">Connected</span></p>
+            <form action="/create-checkout-session" method="POST">
+                <input type="hidden" name="type" value="setup">
+                <button type="submit" class="btn-primary">Manage Wallet Connection</button>
+            </form>
+        </div>
+
+        <div class="action-card" style="border-style: dashed; background: rgba(59, 130, 246, 0.05);">
+            <h3 style="color: #3b82f6;">Honey-Style Simulation</h3>
+            <p>Simuleer een aankoop bij een externe shop en zie de AI in actie.</p>
+            <form action="/scan" method="GET">
+                <button type="submit" class="btn-honey">Test AI Auto-Apply</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
