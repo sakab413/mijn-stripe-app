@@ -1,60 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Zalando.nl - Checkout</title>
+    <title>Checking Out...</title>
     <style>
-        body { margin: 0; font-family: Arial, sans-serif; background: #f0f0f0; overflow: hidden; }
-        /* Fake Webshop Achtergrond */
-        .webshop { padding: 40px; filter: blur(2px); pointer-events: none; }
-        .cart-item { background: white; padding: 20px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; }
+        body { margin: 0; font-family: 'Segoe UI', sans-serif; background: #f8f9fa; color: #333; overflow: hidden; }
+        .webshop { padding: 50px; filter: blur(5px); pointer-events: none; opacity: 0.5; }
+        .cart-item { background: white; padding: 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; max-width: 600px; margin: 0 auto; }
         
-        /* De AI "Honey" Popup */
-        .ai-popup { 
-            position: fixed; top: 20px; right: 20px; width: 320px; 
-            background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            padding: 20px; border: 2px solid #3b82f6; animation: slideIn 0.5s ease-out;
+        /* Honey Popup Style */
+        .ai-overlay { 
+            position: fixed; top: 30px; right: 30px; width: 340px; 
+            background: white; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.15);
+            padding: 25px; border-top: 5px solid #3b82f6; animation: slideIn 0.5s ease-out;
         }
-        @keyframes slideIn { from { transform: translateX(400px); } to { transform: translateX(0); } }
+        @keyframes slideIn { from { transform: translateX(450px); } to { transform: translateX(0); } }
         
-        .status { font-weight: bold; color: #3b82f6; margin-bottom: 15px; display: flex; align-items: center; }
-        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #3b82f6; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; margin-right: 10px; }
+        .status-title { font-weight: bold; font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #3b82f6; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; margin-right: 12px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         
-        .code-list { font-family: monospace; font-size: 12px; color: #666; }
-        .code-item { padding: 5px 0; border-bottom: 1px solid #eee; }
-        .success-msg { color: #10b981; font-weight: bold; display: none; margin-top: 10px; }
+        .codes { font-family: 'Consolas', monospace; font-size: 13px; color: #666; background: #fdfdfd; padding: 10px; border-radius: 10px; }
+        .code { padding: 4px 0; }
+        .success-box { display: none; background: #ecfdf5; color: #059669; padding: 15px; border-radius: 12px; margin-top: 15px; font-weight: bold; text-align: center; }
     </style>
     <script>
-        setTimeout(() => { document.getElementById('c1').style.color = 'red'; document.getElementById('c1').innerHTML += ' - Failed'; }, 800);
-        setTimeout(() => { document.getElementById('c2').style.color = 'red'; document.getElementById('c2').innerHTML += ' - Expired'; }, 1600);
-        setTimeout(() => { 
-            document.getElementById('c3').style.color = '#10b981'; 
-            document.getElementById('c3').innerHTML += ' - APPLIED (€5.00 OFF)';
-            document.querySelector('.loader').style.display = 'none';
-            document.getElementById('success').style.display = 'block';
-        }, 2500);
-        
-        // Doorsturen naar Stripe na de simulatie
-        setTimeout(() => { document.getElementById('final-form').submit(); }, 4500);
+        window.onload = function() {
+            setTimeout(() => { document.getElementById('code1').innerHTML = "❌ DISCOUNT10: Not valid here"; }, 800);
+            setTimeout(() => { document.getElementById('code2').innerHTML = "❌ PROMO2026: Expired"; }, 1600);
+            setTimeout(() => { 
+                document.getElementById('code3').innerHTML = "✅ AI_PROXY_GLOBAL: APPLIED!";
+                document.getElementById('code3').style.color = "#059669";
+                document.querySelector('.spinner').style.display = 'none';
+                document.getElementById('success').style.display = 'block';
+            }, 2600);
+            
+            setTimeout(() => { document.getElementById('final-form').submit(); }, 4500);
+        }
     </script>
 </head>
 <body>
     <div class="webshop">
-        <h1>Jouw Winkelmandje</h1>
-        <div class="cart-item"><span>Nike Air Max</span> <strong>€120,00</strong></div>
-        <div class="cart-item"><span>Zomer Shirt</span> <strong>€30,00</strong></div>
-        <hr>
-        <div style="text-align: right;">Total: €150,00</div>
+        <h2 style="text-align: center;">Webshop Checkout</h2>
+        <div class="cart-item"><span>Product Item #1</span> <strong>€120,00</strong></div>
+        <div class="cart-item"><span>Product Item #2</span> <strong>€30,00</strong></div>
+        <div class="cart-item" style="border:none;"><span>Total:</span> <strong>€150,00</strong></div>
     </div>
 
-    <div class="ai-popup">
-        <div class="status"><div class="loader"></div> AI Proxy is scannen...</div>
-        <div class="code-list">
-            <div class="code-item" id="c1">Trying code: SAVE20</div>
-            <div class="code-item" id="c2">Trying code: WELCOME2024</div>
-            <div class="code-item" id="c3">Trying code: AI_SPECIAL_5</div>
+    <div class="ai-overlay">
+        <div class="status-title"><div class="spinner"></div> AI Proxy Wallet</div>
+        <p style="font-size: 14px; margin-top: 0;">Scanning retailer for the best deal...</p>
+        <div class="codes">
+            <div id="code1" class="code">> Scanning database...</div>
+            <div id="code2" class="code">> Checking store coupons...</div>
+            <div id="code3" class="code">> Verifying AI-discount...</div>
         </div>
-        <div id="success" class="success-msg">Best deal found! Omleiden naar veilige betaling...</div>
+        <div id="success" class="success-box">
+            Korting Gevonden! 💸<br>
+            <span style="font-size: 12px; font-weight: normal;">Handing over to secure proxy payment...</span>
+        </div>
         
         <form id="final-form" action="/create-checkout-session" method="POST" style="display:none;">
             <input type="hidden" name="type" value="simulation">
