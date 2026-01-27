@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI Discount Dashboard</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AI Proxy Dashboard</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f4f7f9; text-align: center; padding: 40px 20px; }
-        .container { background: white; padding: 30px; border-radius: 20px; display: inline-block; box-shadow: 0 10px 30px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        .box { border: 2px solid #f0f2f5; padding: 20px; border-radius: 15px; margin-bottom: 25px; text-align: left; }
-        h2 { color: #333; margin-top: 0; }
-        button { width: 100%; padding: 15px; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.2s; }
-        .btn-blue { background: #6772e5; color: white; }
-        .btn-demo { background: #111; color: #00ff88; border: 1px solid #00ff88; margin-top: 10px; }
-        .info { font-size: 13px; color: #666; margin-bottom: 15px; }
-        .demo-label { font-size: 10px; color: #ff3860; font-weight: bold; letter-spacing: 1px; }
+        body { font-family: 'Inter', sans-serif; background: #0f172a; color: white; text-align: center; padding: 50px 20px; }
+        .dashboard { background: #1e293b; padding: 40px; border-radius: 24px; display: inline-block; width: 100%; max-width: 450px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .status-bar { background: #334155; padding: 10px; border-radius: 10px; margin-bottom: 30px; font-size: 14px; color: #94a3b8; }
+        .status-dot { height: 10px; width: 10px; background-color: #22c55e; border-radius: 50%; display: inline-block; margin-right: 5px; }
+        .action-card { background: #2d3748; padding: 20px; border-radius: 16px; margin-bottom: 20px; text-align: left; border: 1px solid #4a5568; }
+        button { width: 100%; padding: 15px; border: none; border-radius: 12px; cursor: pointer; font-weight: 600; font-size: 16px; transition: 0.3s; }
+        .btn-primary { background: #3b82f6; color: white; }
+        .btn-outline { background: transparent; color: #10b981; border: 2px solid #10b981; }
+        .btn-outline:hover { background: #10b981; color: white; }
+        p { font-size: 14px; color: #94a3b8; line-height: 1.5; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>AI Proxy Wallet</h2>
+    <div class="dashboard">
+        <div class="status-bar">
+            <span class="status-dot"></span> AI Engine: Active & Monitoring
+        </div>
         
-        <div class="box">
-            <span style="font-weight: bold; color: #6772e5;">STAP 1</span>
-            <p class="info">Koppel je bankrekening om de AI-kortingen te activeren.</p>
+        <div class="action-card">
+            <h3>Bank Connection</h3>
+            <p>Your bank is linked for automated micro-transactions and discounts.</p>
             <form action="/create-checkout-session" method="POST">
                 <input type="hidden" name="type" value="setup">
-                <button type="submit" class="btn-blue">🔗 Koppel & Activeer (€10)</button>
+                <button type="submit" class="btn-primary">Manage Connection (€10)</button>
             </form>
         </div>
 
-        <div class="box" style="background: #fdfdfd;">
-            <span class="demo-label">PRESENTATIE MODE</span>
-            <p class="info">Simuleer wat de AI 's middags op de achtergrond doet als een gebruiker iets koopt.</p>
+        <div style="margin: 30px 0; border-top: 1px solid #334155;"></div>
+
+        <div class="action-card" style="border-style: dashed;">
+            <h3 style="color: #10b981;">Simulate External Event</h3>
+            <p>Trigger a background purchase detection (e.g., 3 hours later at Zalando).</p>
             <form action="/scan" method="GET">
-                <button type="submit" class="btn-demo">🤖 Start AI Simulatie</button>
+                <button type="submit" class="btn-outline">Simulate Webshop Purchase</button>
             </form>
         </div>
     </div>
