@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>EasyCashBack - Order Preview</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .receipt { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); width: 360px; text-align: center; }
+        .line { display: flex; justify-content: space-between; margin: 12px 0; color: #475569; }
+        .discount { color: #10b981; font-weight: bold; }
+        .total { font-size: 22px; font-weight: bold; border-top: 2px dashed #e2e8f0; padding-top: 20px; margin-top: 20px; color: #1e293b; }
+        .btn { display: block; width: 100%; padding: 16px; background: #3b82f6; color: white; text-decoration: none; border-radius: 12px; margin-top: 25px; font-weight: bold; border: none; cursor: pointer; font-size: 16px; }
+    </style>
+</head>
+<body>
+    <div class="receipt">
+        <h2 style="color: #1e293b; margin-bottom: 5px;">EasyCashBack</h2>
+        <p style="font-size: 14px; color: #94a3b8; margin-bottom: 30px;">Order Details Gevonden</p>
+        
+        <div class="line"><span>Subtotaal:</span> <span>€50,00</span></div>
+        <div class="line"><span class="discount">Cashback Deal:</span> <span class="discount">-€5,00</span></div>
+        <div class="line"><span>Service Fee:</span> <span>€0,00</span></div>
+        
+        <div class="total"><span>Totaalbedrag:</span> <span>€45,00</span></div>
+        
+        <form action="/create-checkout-session" method="POST">
+            <input type="hidden" name="type" value="simulation_final">
+            <button type="submit" class="btn">Bevestig Betaling via Proxy</button>
+        </form>
+    </div>
+</body>
+</html>
