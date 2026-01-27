@@ -1,7 +1,8 @@
 import stripe
 import os
-from Flask import Flask, render_template, redirect, jsonify, request
+from flask import Flask, render_template, redirect, jsonify, request
 
+# Gebruik de geheime key van Stripe uit je Render settings
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 
 app = Flask(__name__, template_folder='templates')
@@ -21,12 +22,10 @@ def create_checkout_session():
         session_type = request.form.get('type')
 
         if session_type == 'simulation':
-            # Verander de weergave bij de aankoop
             price = 4500
             name = "EasyCashBack: Geverifieerde Transactie"
             description = "Automatische afhandeling van externe bestelling (incl. korting)"
         else:
-            # Activatie fee
             price = 1000
             name = "EasyCashBack Activatie"
             description = "Koppel uw account voor automatische cashback-transacties"
