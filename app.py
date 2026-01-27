@@ -15,7 +15,7 @@ def scan():
 
 @app.route('/checkout_preview')
 def checkout_preview():
-    # De overzichtspagina met het bonnetje
+    # Dit is de pagina die het bonnetje laat zien
     return render_template('checkout_preview.html')
 
 @app.route('/create-checkout-session', methods=['POST'])
@@ -24,6 +24,7 @@ def create_checkout_session():
         base_url = request.host_url.rstrip('/')
         session_type = request.form.get('type')
 
+        # Alleen als we op het bonnetje op 'Bevestig' klikken, gaan we naar de 45 euro betaling
         if session_type == 'simulation_final':
             price, name = 4500, "EasyCashBack: Winkelmandje Betaling"
         else:
@@ -50,10 +51,6 @@ def create_checkout_session():
 @app.route('/success')
 def success():
     return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ EasyCashBack Voltooid</h1><a href='/'>Terug naar Dashboard</a></body></html>"
-
-@app.route('/cancel')
-def cancel():
-    return "<h1>❌ Geannuleerd</h1><a href='/'>Terug naar Dashboard</a>"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
