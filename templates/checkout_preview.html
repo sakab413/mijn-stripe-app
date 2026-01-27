@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>EasyCashBack - Overzicht</title>
+    <title>EasyCashBack - Klaar voor gebruik</title>
     <style>
         body { font-family: 'Segoe UI', sans-serif; background: #f1f5f9; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
         .receipt { background: white; padding: 40px; border-radius: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.1); width: 360px; text-align: center; }
         .line { display: flex; justify-content: space-between; margin: 12px 0; color: #475569; }
         .discount { color: #10b981; font-weight: bold; }
         .total { font-size: 22px; font-weight: bold; border-top: 2px dashed #e2e8f0; padding-top: 20px; margin-top: 20px; color: #1e293b; }
-        .btn { display: block; width: 100%; padding: 16px; background: #3b82f6; color: white; border-radius: 12px; margin-top: 25px; font-weight: bold; border: none; cursor: pointer; font-size: 16px; text-decoration: none; }
+        .btn { display: block; width: 100%; padding: 16px; background: #10b981; color: white; border-radius: 12px; margin-top: 25px; font-weight: bold; text-decoration: none; font-size: 16px; }
     </style>
 </head>
 <body>
     <div class="receipt">
-        <h2 style="color: #1e293b;">Bestelling Overzicht</h2>
-        <div class="line"><span>Winkelmandje:</span> <span>€50,00</span></div>
-        <div class="line"><span class="discount">EasyCashBack:</span> <span class="discount">-€5,00</span></div>
-        <div class="total"><span>Totaal:</span> <span>€45,00</span></div>
+        <h2 style="color: #1e293b;">Korting Toegepast!</h2>
+        <p style="font-size: 14px; color: #64748b;">De EasyCashBack Engine heeft je voordeel berekend.</p>
         
-        <form action="/create-checkout-session" method="POST">
-            <input type="hidden" name="type" value="simulation_final">
-            <button type="submit" class="btn">Bevestig & Betaal €45,00</button>
-        </form>
+        <div class="line"><span>Winkelmandje:</span> <span>€50,00</span></div>
+        <div class="line"><span class="discount">Jouw Voordeel:</span> <span class="discount">-€5,00</span></div>
+        <div class="total"><span>Nieuw Totaal:</span> <span>€45,00</span></div>
+        
+        <a href="/webshop_success" class="btn">Toepassen & Ga naar Webshop</a>
+        
         <a href="/" style="display:block; margin-top:15px; color:#94a3b8; font-size:12px; text-decoration:none;">Annuleren</a>
     </div>
 </body>
