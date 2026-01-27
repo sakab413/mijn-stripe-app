@@ -50,5 +50,9 @@ def create_checkout_session():
 def success():
     return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ EasyCashBack Geactiveerd</h1><a href='/'>Terug naar Dashboard</a></body></html>"
 
+@app.route('/cancel')
+def cancel():
+    return redirect('/')
+
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
