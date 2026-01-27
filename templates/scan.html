@@ -4,33 +4,32 @@
     <title>EasyCashBack Engine</title>
     <style>
         body { margin: 0; font-family: sans-serif; background: #0f172a; color: white; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        .ai-card { background: #1e293b; width: 360px; border-radius: 24px; padding: 40px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); border-top: 6px solid #10b981; }
-        .spinner { border: 4px solid #334155; border-top: 4px solid #10b981; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 25px; }
+        .ai-card { background: #1e293b; width: 360px; border-radius: 24px; padding: 40px; text-align: center; border-top: 6px solid #10b981; }
+        .spinner { border: 4px solid #334155; border-top: 4px solid #10b981; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin: 0 auto 20px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .log { font-family: monospace; font-size: 13px; color: #94a3b8; text-align: left; line-height: 1.6; }
+        .log { font-family: monospace; font-size: 13px; color: #94a3b8; text-align: left; }
     </style>
 </head>
 <body>
     <div class="ai-card">
         <div class="spinner"></div>
-        <h2 id="headline">Analyzing Shop...</h2>
+        <h2 id="shop-name">Analyzing...</h2>
         <div class="log">
-            <div id="l1">> Connecting to browser metadata...</div>
-            <div id="l2">> Scraping price data...</div>
-            <div id="l3">> Checking AI database...</div>
+            <div id="l1">> AI-engine initialiseert...</div>
+            <div id="l2">> Pagina scannen op prijzen...</div>
+            <div id="l3">> Zoeken naar cashback-mogelijkheden...</div>
         </div>
     </div>
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const ref = urlParams.get('ref') || "Webshop";
+        const ref = urlParams.get('ref') || "Winkel";
         let domain = "Winkel";
-        try { domain = new URL(ref).hostname; } catch(e) {}
-
-        document.getElementById('headline').innerText = domain;
+        try { domain = new URL(ref).hostname.replace('www.', ''); } catch(e) {}
+        document.getElementById('shop-name').innerText = domain;
 
         setTimeout(() => { document.getElementById('l1').innerHTML = "> Verbonden met " + domain; }, 1000);
-        setTimeout(() => { document.getElementById('l2').innerHTML = "> Prijs van €50,00 gedetecteerd op " + domain; }, 2000);
-        setTimeout(() => { document.getElementById('l3').innerHTML = "> <b>Korting van €5,00 gevonden!</b>"; document.getElementById('l3').style.color="#10b981"; }, 3000);
+        setTimeout(() => { document.getElementById('l2').innerHTML = "> Winkelmandje gevonden (€50,00)"; }, 2000);
+        setTimeout(() => { document.getElementById('l3').innerHTML = "> <b>EasyCashBack Deal: €5,00 gevonden!</b>"; document.getElementById('l3').style.color="#10b981"; }, 3000);
         setTimeout(() => { window.location.href = "/checkout_preview"; }, 4500);
     </script>
 </body>
