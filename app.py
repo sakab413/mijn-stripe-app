@@ -30,10 +30,7 @@ def create_checkout_session():
             line_items=[{
                 'price_data': {
                     'currency': 'eur',
-                    'product_data': {
-                        'name': "EasyCashBack Activatie",
-                        'description': "Koppel uw bankrekening voor AI-kortingen"
-                    },
+                    'product_data': {'name': "EasyCashBack Activatie"},
                     'unit_amount': 1000,
                 },
                 'quantity': 1,
@@ -48,11 +45,7 @@ def create_checkout_session():
 
 @app.route('/success')
 def success():
-    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ EasyCashBack Geactiveerd</h1><a href='/'>Terug naar Dashboard</a></body></html>"
-
-@app.route('/cancel')
-def cancel():
-    return redirect('/')
+    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ Systeem Gekoppeld</h1><p>Je bankrekening is nu geverifieerd.</p><a href='/'>Terug naar Dashboard</a></body></html>"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
