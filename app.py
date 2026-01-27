@@ -1,8 +1,7 @@
 import stripe
 import os
-from flask import Flask, render_template, redirect, jsonify, request
+from Flask import Flask, render_template, redirect, jsonify, request
 
-# Haal de Stripe key uit de Environment Variables van Render
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 
 app = Flask(__name__, template_folder='templates')
@@ -22,15 +21,15 @@ def create_checkout_session():
         session_type = request.form.get('type')
 
         if session_type == 'simulation':
-            # Bedrag met €5,- AI korting
+            # Verander de weergave bij de aankoop
             price = 4500
-            name = "Automated AI Proxy Transaction"
-            description = "Universal Webshop Discount Applied"
+            name = "EasyCashBack: Geverifieerde Transactie"
+            description = "Automatische afhandeling van externe bestelling (incl. korting)"
         else:
             # Activatie fee
             price = 1000
-            name = "AI Wallet Connection Fee"
-            description = "One-time service activation"
+            name = "EasyCashBack Activatie"
+            description = "Koppel uw account voor automatische cashback-transacties"
 
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['ideal', 'card'],
@@ -52,11 +51,11 @@ def create_checkout_session():
 
 @app.route('/success')
 def success():
-    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ Betaald</h1><p>De AI heeft de transactie succesvol voltooid.</p><a href='/'>Terug naar Dashboard</a></body></html>"
+    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ EasyCashBack Voltooid</h1><p>De AI heeft uw transactie succesvol verwerkt.</p><a href='/'>Terug naar Dashboard</a></body></html>"
 
 @app.route('/cancel')
 def cancel():
-    return "<h1>❌ Geannuleerd</h1><a href='/'>Terug</a>"
+    return "<h1>❌ Geannuleerd</h1><a href='/'>Terug naar EasyCashBack</a>"
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
