@@ -13,7 +13,7 @@
 <body>
     <div class="ai-card">
         <div class="spinner"></div>
-        <h2 id="shop-name">Analyzing...</h2>
+        <h2>EasyCashBack AI</h2>
         <div class="log">
             <div id="l1">> AI-engine initialiseert...</div>
             <div id="l2">> Pagina scannen op prijzen...</div>
@@ -21,15 +21,9 @@
         </div>
     </div>
     <script>
-        const urlParams = new URLSearchParams(window.location.search);
-        const ref = urlParams.get('ref') || "Winkel";
-        let domain = "Winkel";
-        try { domain = new URL(ref).hostname.replace('www.', ''); } catch(e) {}
-        document.getElementById('shop-name').innerText = domain;
-
-        setTimeout(() => { document.getElementById('l1').innerHTML = "> Verbonden met " + domain; }, 1000);
-        setTimeout(() => { document.getElementById('l2').innerHTML = "> Winkelmandje gevonden (€50,00)"; }, 2000);
-        setTimeout(() => { document.getElementById('l3').innerHTML = "> <b>EasyCashBack Deal: €5,00 gevonden!</b>"; document.getElementById('l3').style.color="#10b981"; }, 3000);
+        setTimeout(() => { document.getElementById('l1').innerHTML = "> Verbonden met browser"; }, 1000);
+        setTimeout(() => { document.getElementById('l2').innerHTML = "> Winkelmandje gedetecteerd (€50,00)"; }, 2000);
+        setTimeout(() => { document.getElementById('l3').innerHTML = "> <b>AI Deal: €5,00 korting gevonden!</b>"; document.getElementById('l3').style.color="#10b981"; }, 3000);
         setTimeout(() => { window.location.href = "/checkout_preview"; }, 4500);
     </script>
 </body>
