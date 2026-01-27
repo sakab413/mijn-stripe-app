@@ -17,6 +17,10 @@ def scan():
 def checkout_preview():
     return render_template('checkout_preview.html')
 
+@app.route('/webshop_success')
+def webshop_success():
+    return render_template('nike_cart.html')
+
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:
@@ -28,7 +32,7 @@ def create_checkout_session():
                     'currency': 'eur',
                     'product_data': {
                         'name': "EasyCashBack Activatie",
-                        'description': "Activeer uw account voor automatische cashback-deals"
+                        'description': "Koppel uw bankrekening voor AI-kortingen"
                     },
                     'unit_amount': 1000,
                 },
@@ -44,11 +48,7 @@ def create_checkout_session():
 
 @app.route('/success')
 def success():
-    return "<h1>✅ EasyCashBack Geactiveerd</h1><a href='/'>Terug naar Dashboard</a>"
-
-@app.route('/cancel')
-def cancel():
-    return "<h1>❌ Koppeling geannuleerd</h1><a href='/'>Terug naar EasyCashBack</a>"
+    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ EasyCashBack Geactiveerd</h1><a href='/'>Terug naar Dashboard</a></body></html>"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
