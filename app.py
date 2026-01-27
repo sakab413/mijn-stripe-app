@@ -11,17 +11,11 @@ def index():
 
 @app.route('/scan')
 def scan():
-    # We vangen de URL van de webshop op via de 'ref' parameter
-    shop_url = request.args.get('ref', 'de webshop')
-    return render_template('scan.html', shop_url=shop_url)
+    return render_template('scan.html')
 
 @app.route('/checkout_preview')
 def checkout_preview():
     return render_template('checkout_preview.html')
-
-@app.route('/webshop_success')
-def webshop_success():
-    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;background:#f8f9fa;'><div style='display:inline-block;background:white;padding:50px;border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.05);'><h1 style='color:#10b981;'>🛒 Terug bij de Webshop</h1><p>De <b>EasyCashBack</b> korting is toegepast via je gekoppelde bankrekening!</p><div style='background:#eee;padding:20px;border-radius:10px;margin:20px 0;'>Nieuw totaal: <b>€45,00</b></div><button style='padding:15px 30px;background:#333;color:white;border:none;border-radius:10px;cursor:pointer;'>Nu definitief afrekenen</button><br><br><a href='/' style='color:#94a3b8;text-decoration:none;'>Terug naar Dashboard</a></div></body></html>"
 
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
@@ -32,7 +26,10 @@ def create_checkout_session():
             line_items=[{
                 'price_data': {
                     'currency': 'eur',
-                    'product_data': {'name': "EasyCashBack Activatie"},
+                    'product_data': {
+                        'name': "EasyCashBack Activatie",
+                        'description': "Activeer uw account voor automatische cashback-deals"
+                    },
                     'unit_amount': 1000,
                 },
                 'quantity': 1,
@@ -47,7 +44,11 @@ def create_checkout_session():
 
 @app.route('/success')
 def success():
-    return "<h1>✅ Account Geactiveerd</h1><a href='/'>Terug naar Dashboard</a>"
+    return "<h1>✅ EasyCashBack Geactiveerd</h1><a href='/'>Terug naar Dashboard</a>"
+
+@app.route('/cancel')
+def cancel():
+    return "<h1>❌ Koppeling geannuleerd</h1><a href='/'>Terug naar EasyCashBack</a>"
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
