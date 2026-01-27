@@ -8,29 +8,34 @@
         .status-bar { background: #334155; padding: 10px; border-radius: 10px; margin-bottom: 30px; font-size: 14px; color: #94a3b8; }
         .status-dot { height: 10px; width: 10px; background-color: #ef4444; border-radius: 50%; display: inline-block; margin-right: 5px; }
         .action-card { background: #2d3748; padding: 25px; border-radius: 16px; margin-bottom: 20px; text-align: left; border: 1px solid #4a5568; }
-        .btn-primary { width: 100%; padding: 15px; border: none; border-radius: 12px; background: #3b82f6; color: white; font-weight: bold; cursor: pointer; }
-        .magic-button { display: inline-block; padding: 12px 20px; background: #10b981; color: white; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 14px; border: 2px solid #059669; }
+        .btn-primary { width: 100%; padding: 15px; border: none; border-radius: 12px; background: #3b82f6; color: white; font-weight: bold; cursor: pointer; font-size: 16px; }
+        .btn-magic { width: 100%; padding: 15px; background: #10b981; color: white; border-radius: 12px; font-weight: bold; text-decoration: none; display: inline-block; text-align: center; border: 2px solid #059669; }
+        .hint { display: none; background: #1e293b; color: #10b981; padding: 15px; border-radius: 10px; margin-top: 15px; font-size: 14px; border: 1px solid #10b981; }
     </style>
 </head>
 <body>
     <div class="dashboard">
-        <h1>EasyCashBack</h1>
-        <div class="status-bar"><span class="status-dot"></span> System: Ready</div>
+        <h1 style="color: #10b981;">EasyCashBack</h1>
+        <div class="status-bar"><span class="status-dot"></span> Status: <b>Not Connected</b></div>
         
         <div class="action-card">
-            <h3>1. Activatie</h3>
-            <p>Koppel je bank éénmalig via Stripe.</p>
-            <form action="/create-checkout-session" method="POST"><button type="submit" class="btn-primary">Connect Bank</button></form>
+            <h3>1. Bank Koppelen</h3>
+            <p>Verbind je rekening via EasyCashBack om de AI-engine te activeren.</p>
+            <form action="/create-checkout-session" method="POST">
+                <button type="submit" class="btn-primary">Koppel via EasyCashBack</button>
+            </form>
         </div>
 
-        <div class="action-card" style="border: 2px solid #10b981; background: rgba(16, 185, 129, 0.05);">
-            <h3>2. Installatie</h3>
-            <p>Sleep deze knop naar je <b>Bladwijzerbalk</b>:</p>
-            <div style="text-align: center; margin-top: 15px;">
-                <a class="magic-button" href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();">🚀 Activeer EasyCashBack</a>
+        <div class="action-card" style="border: 2px solid #10b981;">
+            <h3>2. Kortingsknop Toevoegen</h3>
+            <p>Klik op de knop hieronder en druk daarna op <b>Ctrl+D</b> om EasyCashBack in je browser op te slaan.</p>
+            <a href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();" 
+               class="btn-magic" onclick="showHint()">🚀 EasyCashBack Activeren</a>
+            <div id="hint-box" class="hint">
+                <b>Nu opslaan:</b> Druk op <b>Ctrl+D</b> (of <b>Cmd+D</b>) en selecteer de Bladwijzerbalk!
             </div>
-            <p style="font-size: 11px; margin-top: 10px;">Gebruik deze knop straks als je op een webshop bent!</p>
         </div>
     </div>
+    <script>function showHint(){ document.getElementById('hint-box').style.display='block'; }</script>
 </body>
 </html>
