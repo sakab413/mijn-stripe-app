@@ -1,31 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>AI Engine Scanning...</title>
+    <title>Zalando.nl - Checkout</title>
     <style>
-        body { background: #0b0e14; color: #00ff88; font-family: 'Courier New', monospace; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; overflow: hidden; }
-        .console { width: 80%; max-width: 600px; padding: 20px; border: 1px solid #333; background: #000; box-shadow: 0 0 20px rgba(0,255,136,0.2); }
-        .line { margin-bottom: 10px; opacity: 0; animation: fadeIn 0.5s forwards; }
-        .line:nth-child(2) { animation-delay: 1s; }
-        .line:nth-child(3) { animation-delay: 2s; }
-        .line:nth-child(4) { animation-delay: 3s; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .dots:after { content: '.'; animation: dots 1.5s infinite; }
-        @keyframes dots { 0%, 20% { content: '.'; } 40% { content: '..'; } 60% { content: '...'; } }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f0f0f0; overflow: hidden; }
+        /* Fake Webshop Achtergrond */
+        .webshop { padding: 40px; filter: blur(2px); pointer-events: none; }
+        .cart-item { background: white; padding: 20px; margin-bottom: 10px; border-radius: 8px; display: flex; justify-content: space-between; }
+        
+        /* De AI "Honey" Popup */
+        .ai-popup { 
+            position: fixed; top: 20px; right: 20px; width: 320px; 
+            background: white; border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            padding: 20px; border: 2px solid #3b82f6; animation: slideIn 0.5s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateX(400px); } to { transform: translateX(0); } }
+        
+        .status { font-weight: bold; color: #3b82f6; margin-bottom: 15px; display: flex; align-items: center; }
+        .loader { border: 3px solid #f3f3f3; border-top: 3px solid #3b82f6; border-radius: 50%; width: 20px; height: 20px; animation: spin 1s linear infinite; margin-right: 10px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .code-list { font-family: monospace; font-size: 12px; color: #666; }
+        .code-item { padding: 5px 0; border-bottom: 1px solid #eee; }
+        .success-msg { color: #10b981; font-weight: bold; display: none; margin-top: 10px; }
     </style>
     <script>
-        // Na 4 seconden stuurt hij de gebruiker door naar de betaling
-        setTimeout(function(){ document.getElementById('auto-form').submit(); }, 4500);
+        setTimeout(() => { document.getElementById('c1').style.color = 'red'; document.getElementById('c1').innerHTML += ' - Failed'; }, 800);
+        setTimeout(() => { document.getElementById('c2').style.color = 'red'; document.getElementById('c2').innerHTML += ' - Expired'; }, 1600);
+        setTimeout(() => { 
+            document.getElementById('c3').style.color = '#10b981'; 
+            document.getElementById('c3').innerHTML += ' - APPLIED (€5.00 OFF)';
+            document.querySelector('.loader').style.display = 'none';
+            document.getElementById('success').style.display = 'block';
+        }, 2500);
+        
+        // Doorsturen naar Stripe na de simulatie
+        setTimeout(() => { document.getElementById('final-form').submit(); }, 4500);
     </script>
 </head>
 <body>
-    <div class="console">
-        <div class="line">>> MONITORING ACTIVE_SESSION...</div>
-        <div class="line">>> EXTERNAL_CART_DETECTED: Zalando.nl [Value: €50,00]</div>
-        <div class="line">>> APPLYING_AI_PROXY_DISCOUNT: -€5,00 <span style="color:white;">(Success)</span></div>
-        <div class="line">>> INITIATING SECURE TRANSACTION: €45,00<span class="dots"></span></div>
+    <div class="webshop">
+        <h1>Jouw Winkelmandje</h1>
+        <div class="cart-item"><span>Nike Air Max</span> <strong>€120,00</strong></div>
+        <div class="cart-item"><span>Zomer Shirt</span> <strong>€30,00</strong></div>
+        <hr>
+        <div style="text-align: right;">Total: €150,00</div>
+    </div>
+
+    <div class="ai-popup">
+        <div class="status"><div class="loader"></div> AI Proxy is scannen...</div>
+        <div class="code-list">
+            <div class="code-item" id="c1">Trying code: SAVE20</div>
+            <div class="code-item" id="c2">Trying code: WELCOME2024</div>
+            <div class="code-item" id="c3">Trying code: AI_SPECIAL_5</div>
+        </div>
+        <div id="success" class="success-msg">Best deal found! Omleiden naar veilige betaling...</div>
         
-        <form id="auto-form" action="/create-checkout-session" method="POST" style="display:none;">
+        <form id="final-form" action="/create-checkout-session" method="POST" style="display:none;">
             <input type="hidden" name="type" value="simulation">
         </form>
     </div>
