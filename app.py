@@ -2,7 +2,9 @@ import stripe
 import os
 from flask import Flask, render_template, redirect, jsonify, request
 
+# Haal de Stripe key uit de Environment Variables van Render
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+
 app = Flask(__name__, template_folder='templates')
 
 @app.route('/')
@@ -18,11 +20,28 @@ def create_checkout_session():
     try:
         base_url = request.host_url.rstrip('/')
         session_type = request.form.get('type')
-        price, name = (4500, "AI Korting Transactie") if session_type == 'simulation' else (1000, "Bankkoppeling Fee")
+
+        if session_type == 'simulation':
+            # Bedrag met €5,- AI korting
+            price = 4500
+            name = "Automated AI Proxy Transaction"
+            description = "Universal Webshop Discount Applied"
+        else:
+            # Activatie fee
+            price = 1000
+            name = "AI Wallet Connection Fee"
+            description = "One-time service activation"
 
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['ideal', 'card'],
-            line_items=[{'price_data': {'currency': 'eur', 'product_data': {'name': name}, 'unit_amount': price}, 'quantity': 1}],
+            line_items=[{
+                'price_data': {
+                    'currency': 'eur',
+                    'product_data': {'name': name, 'description': description},
+                    'unit_amount': price,
+                },
+                'quantity': 1,
+            }],
             mode='payment',
             success_url=f"{base_url}/success",
             cancel_url=f"{base_url}/cancel",
@@ -33,7 +52,7 @@ def create_checkout_session():
 
 @app.route('/success')
 def success():
-    return "<html><body style='text-align:center;padding-top:50px;'><h1>✅ Geslaagd</h1><a href='/'>Terug</a></body></html>"
+    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ Betaald</h1><p>De AI heeft de transactie succesvol voltooid.</p><a href='/'>Terug naar Dashboard</a></body></html>"
 
 @app.route('/cancel')
 def cancel():
