@@ -2,9 +2,7 @@ import stripe
 import os
 from flask import Flask, render_template, redirect, jsonify, request
 
-# Gebruik de geheime key van Stripe uit je Render settings
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
-
 app = Flask(__name__, template_folder='templates')
 
 @app.route('/')
@@ -15,27 +13,28 @@ def index():
 def scan():
     return render_template('scan.html')
 
+@app.route('/checkout_preview')
+def checkout_preview():
+    # De overzichtspagina met het bonnetje
+    return render_template('checkout_preview.html')
+
 @app.route('/create-checkout-session', methods=['POST'])
 def create_checkout_session():
     try:
         base_url = request.host_url.rstrip('/')
         session_type = request.form.get('type')
 
-        if session_type == 'simulation':
-            price = 4500
-            name = "EasyCashBack: Geverifieerde Transactie"
-            description = "Automatische afhandeling van externe bestelling (incl. korting)"
+        if session_type == 'simulation_final':
+            price, name = 4500, "EasyCashBack: Winkelmandje Betaling"
         else:
-            price = 1000
-            name = "EasyCashBack Activatie"
-            description = "Koppel uw account voor automatische cashback-transacties"
+            price, name = 1000, "EasyCashBack Account Activatie"
 
         checkout_session = stripe.checkout.Session.create(
             payment_method_types=['ideal', 'card'],
             line_items=[{
                 'price_data': {
                     'currency': 'eur',
-                    'product_data': {'name': name, 'description': description},
+                    'product_data': {'name': name},
                     'unit_amount': price,
                 },
                 'quantity': 1,
@@ -50,12 +49,11 @@ def create_checkout_session():
 
 @app.route('/success')
 def success():
-    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ EasyCashBack Voltooid</h1><p>De AI heeft uw transactie succesvol verwerkt.</p><a href='/'>Terug naar Dashboard</a></body></html>"
+    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ EasyCashBack Voltooid</h1><a href='/'>Terug naar Dashboard</a></body></html>"
 
 @app.route('/cancel')
 def cancel():
-    return "<h1>❌ Geannuleerd</h1><a href='/'>Terug naar EasyCashBack</a>"
+    return "<h1>❌ Geannuleerd</h1><a href='/'>Terug naar Dashboard</a>"
 
 if __name__ == '__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
