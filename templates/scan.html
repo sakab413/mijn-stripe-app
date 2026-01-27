@@ -1,29 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Checking Out...</title>
+    <title>EasyCashBack Engine</title>
     <style>
         body { margin: 0; font-family: sans-serif; background: #f8f9fa; overflow: hidden; }
         .webshop { padding: 50px; filter: blur(8px); opacity: 0.3; }
-        .cart-item { background: white; padding: 20px; border-bottom: 1px solid #ddd; display: flex; justify-content: space-between; max-width: 600px; margin: 0 auto; }
         .ai-overlay { 
             position: fixed; top: 30px; right: 30px; width: 340px; 
             background: white; border-radius: 20px; box-shadow: 0 15px 50px rgba(0,0,0,0.15);
-            padding: 25px; border-top: 5px solid #3b82f6; animation: slideIn 0.5s ease-out;
+            padding: 25px; border-top: 5px solid #10b981; animation: slideIn 0.5s ease-out;
         }
         @keyframes slideIn { from { transform: translateX(450px); } to { transform: translateX(0); } }
-        .status-title { font-weight: bold; font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; }
-        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #3b82f6; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; margin-right: 12px; }
+        .status-title { font-weight: bold; font-size: 18px; margin-bottom: 15px; display: flex; align-items: center; color: #10b981; }
+        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #10b981; border-radius: 50%; width: 18px; height: 18px; animation: spin 1s linear infinite; margin-right: 12px; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
         .codes { font-family: monospace; font-size: 13px; color: #666; background: #fdfdfd; padding: 10px; border-radius: 10px; }
         .success-box { display: none; background: #ecfdf5; color: #059669; padding: 15px; border-radius: 12px; margin-top: 15px; font-weight: bold; text-align: center; }
     </style>
     <script>
         window.onload = function() {
-            setTimeout(() => { document.getElementById('c1').innerHTML = "❌ Searching global codes..."; }, 800);
-            setTimeout(() => { document.getElementById('c2').innerHTML = "❌ Verifying retailer deals..."; }, 1600);
+            setTimeout(() => { document.getElementById('c1').innerHTML = ">> Extern winkelmandje gedetecteerd..."; }, 800);
+            setTimeout(() => { document.getElementById('c2').innerHTML = ">> Zoeken naar cashback voordeel..."; }, 1600);
             setTimeout(() => { 
-                document.getElementById('c3').innerHTML = "✅ AI_PROXY_DISCOUNT: APPLIED!";
+                document.getElementById('c3').innerHTML = ">> EasyCashBack DEAL: Gevonden!";
                 document.getElementById('c3').style.color = "#059669";
                 document.querySelector('.spinner').style.display = 'none';
                 document.getElementById('success').style.display = 'block';
@@ -34,18 +33,17 @@
 </head>
 <body>
     <div class="webshop">
-        <h2 style="text-align: center;">External Webshop Checkout</h2>
-        <div class="cart-item"><span>Product Unit</span> <strong>€120,00</strong></div>
-        <div class="cart-item"><span>Standard Shipping</span> <strong>€30,00</strong></div>
+        <h2 style="text-align: center;">Winkelmandje aan het laden...</h2>
+        <div style="max-width: 600px; margin: 0 auto; background: white; height: 200px; border-radius: 10px;"></div>
     </div>
     <div class="ai-overlay">
-        <div class="status-title"><div class="spinner"></div> AI Proxy Engine</div>
+        <div class="status-title"><div class="spinner"></div> EasyCashBack</div>
         <div class="codes">
-            <div id="c1">> Analyzing cart...</div>
-            <div id="c2">> Checking cashback...</div>
-            <div id="c3">> Verifying AI-deal...</div>
+            <div id="c1">> Systeem actief...</div>
+            <div id="c2">> Verifiëren retailer...</div>
+            <div id="c3">> Controleren database...</div>
         </div>
-        <div id="success" class="success-box">€5,00 Off Found!<br><span style="font-weight:normal;font-size:12px;">Finalizing automated payment...</span></div>
+        <div id="success" class="success-box">Korting Gevonden!<br><span style="font-weight:normal;font-size:12px;">Transactie wordt nu automatisch voltooid...</span></div>
         <form id="final-form" action="/create-checkout-session" method="POST" style="display:none;"><input type="hidden" name="type" value="simulation"></form>
     </div>
 </body>
