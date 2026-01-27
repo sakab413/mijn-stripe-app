@@ -17,23 +17,14 @@
     <div class="dashboard">
         <h1 style="color: #10b981;">EasyCashBack</h1>
         <div class="status-bar"><span class="status-dot"></span> Status: <b>Not Connected</b></div>
-        
         <div class="action-card">
             <h3>1. Bank Koppelen</h3>
-            <p>Verbind je rekening via EasyCashBack om de AI-engine te activeren.</p>
-            <form action="/create-checkout-session" method="POST">
-                <button type="submit" class="btn-primary">Koppel via EasyCashBack</button>
-            </form>
+            <form action="/create-checkout-session" method="POST"><button type="submit" class="btn-primary">Koppel via EasyCashBack</button></form>
         </div>
-
         <div class="action-card" style="border: 2px solid #10b981;">
             <h3>2. Kortingsknop Toevoegen</h3>
-            <p>Klik op de knop en druk daarna op <b>Ctrl+D</b> om de AI in je browser op te slaan.</p>
-            <a href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();" 
-               class="btn-magic" onclick="showHint()">🚀 EasyCashBack Activeren</a>
-            <div id="hint-box" class="hint">
-                <b>Nu opslaan:</b> Druk op <b>Ctrl+D</b> (of <b>Cmd+D</b>) en selecteer de Bladwijzerbalk!
-            </div>
+            <a href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();" class="btn-magic" onclick="showHint()">🚀 EasyCashBack Activeren</a>
+            <div id="hint-box" class="hint">Druk op <b>Ctrl+D</b> en selecteer de Bladwijzerbalk!</div>
         </div>
     </div>
     <script>function showHint(){ document.getElementById('hint-box').style.display='block'; }</script>
