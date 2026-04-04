@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard | EasyCashBack</title>
+    <style>
+        body { font-family: sans-serif; background: #0f172a; color: white; padding: 50px; }
+        .list { max-width: 500px; margin: 0 auto; background: #1e293b; border-radius: 15px; }
+        .item { padding: 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; }
+        .green { color: #10b981; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1 style="text-align: center;">Jouw Cashbacks</h1>
+    <div class="list" id="list">Laden...</div>
+
+    <script>
+        fetch('/api/check-cashback')
+            .then(r => r.json())
+            .then(data => {
+                const container = document.getElementById('list');
+                container.innerHTML = "";
+                data.deals.forEach(d => {
+                    container.innerHTML += `
+                        <div class="item">
+                            <span>${d.shop}</span>
+                            <span class="green">+ €${d.cashback}</span>
+                        </div>`;
+                });
+            });
+    </script>
+</body>
+</html>
