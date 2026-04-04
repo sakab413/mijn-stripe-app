@@ -1,65 +1,58 @@
-import stripe
 import os
-from flask import Flask, render_template, redirect, jsonify, request
-
-# Haal de sleutel op uit Render settings
-stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+from flask import Flask, render_template, redirect, jsonify
+from nordigen import NordigenClient
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+# Config: Zet deze in Render Environment Variables!
+client = NordigenClient(
+    secret_id=os.environ.get('NORDIGEN_ID'),
+    secret_key=os.environ.get('NORDIGEN_KEY')
+)
 
-@app.route('/scan')
-def scan():
-    return render_template('scan.html')
+# Lijst met winkels waar je cashback op geeft
+CASHBACK_SHOPS = {
+    "BOL.COM": 0.05,    # 5%
+    "COOLBLUE": 0.03,   # 3%
+    "NIKE": 0.10,       # 10%
+    "ZALANDO": 0.07     # 7%
+}
 
-@app.route('/checkout_preview')
-def checkout_preview():
-    return render_template('checkout_preview.html')
-
-@app.route('/webshop_success')
-def webshop_success():
-    return render_template('nike_cart.html')
-
-@app.route('/create-checkout-session', methods=['POST'])
-def create_checkout_session():
+@app.route('/sync-bank')
+def sync_bank():
+    """Haalt de echte transacties op en checkt op matches"""
     try:
-        # We gebruiken de huidige URL van je app voor de terugweg
-        base_url = request.host_url.rstrip('/')
+        # In een echte demo gebruik je de REQUISITION_ID van de gekoppelde bank
+        # Voor nu halen we de lijst op (via de Nordigen Sandbox voor je presentatie)
+        account_id = os.environ.get('BANK_ACCOUNT_ID')
+        transactions = client.account(account_id).get_transactions()
         
-        checkout_session = stripe.checkout.Session.create(
-            payment_method_types=['ideal', 'card'],
-            line_items=[{
-                'price_data': {
-                    'currency': 'eur',
-                    'product_data': {
-                        'name': "EasyCashBack Activatie",
-                        'description': "Veilige koppeling met uw bankrekening"
-                    },
-                    'unit_amount': 1000, 
-                },
-                'quantity': 1,
-            }],
-            mode='payment',
-            success_url=f"{base_url}/success",
-            # HIER zat de verbetering: we sturen ze naar de /cancel route
-            cancel_url=f"{base_url}/cancel", 
-        )
-        return redirect(checkout_session.url, code=303)
+        found_cashbacks = []
+        
+        # Loop door alle boekingen van de bank
+        for tx in transactions['booked']:
+            omschrijving = tx.get('remittanceInformationUnstructured', '').upper()
+            bedrag = float(tx['transactionAmount']['amount'])
+            
+            # Check of de winkel in onze lijst staat
+            for shop, rate in CASHBACK_SHOPS.items():
+                if shop in omschrijving:
+                    cashback_verdiend = abs(bedrag) * rate
+                    found_cashbacks.append({
+                        "winkel": shop,
+                        "uitgave": bedrag,
+                        "cashback": round(cashback_verdiend, 2)
+                    })
+        
+        return jsonify({
+            "status": "success",
+            "gevonden_deals": found_cashbacks
+        })
     except Exception as e:
-        return f"Systeem Error: {str(e)}", 400
+        return jsonify({"status": "error", "message": str(e)})
 
-# De route die wordt aangeroepen als de gebruiker op 'terug' klikt in Stripe
-@app.route('/cancel')
-def cancel():
-    # Dit stuurt ze direct terug naar je lichte dashboard
-    return redirect('/')
-
-@app.route('/success')
-def success():
-    return "<html><body style='text-align:center;padding-top:100px;font-family:sans-serif;'><h1>✅ Koppeling Geslaagd</h1><p>Uw bank is nu verbonden.</p><a href='/'>Terug naar Dashboard</a></body></html>"
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
+# Route om de bank-koppeling te starten
+@app.route('/connect-bank')
+def connect_bank():
+    # ... (code uit vorig bericht om link naar bank te maken)
+    pass
