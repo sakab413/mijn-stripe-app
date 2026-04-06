@@ -3,3 +3,5 @@ nordigen
 gunicorn
 stripe
 requests
+supabase
+python-dotenv
