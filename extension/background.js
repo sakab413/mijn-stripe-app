@@ -1,18 +1,23 @@
-// Luister of een tabblad wordt bijgewerkt (bijv. als iemand naar Nike.com gaat)
+// Luister of een tabblad wordt bijgewerkt
 chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
   if (changeInfo.status === 'complete' && tab.url) {
     
-    // We checken of de gebruiker op een ondersteunde shop zit
+    // We checken of de gebruiker op een ondersteunde shop zit (bijv. Nike of Adidas)
     if (tab.url.includes("nike.com") || tab.url.includes("adidas.nl")) {
       
-      console.log("Webshop herkend! Data ophalen uit database...");
+      console.log("Webshop herkend! Live data ophalen van Render...");
 
-      // VERVANG ONDERSTAANDE URL DOOR JOUW EIGEN RENDER URL
-      fetch('https://JOUW-APP-NAAM.onrender.com/api/check-cashback')
-        .then(response => response.json())
+      // Jouw specifieke Render URL met de API-route erachter
+      const apiUrl = 'https://mijn-stripe-app.onrender.com/api/check-cashback';
+
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) throw new Error('Netwerk reageert niet');
+          return response.json();
+        })
         .then(data => {
           if (data.status === 'found') {
-            // Maak een echte Windows/Mac notificatie
+            // Maak de notificatie die de gebruiker te zien krijgt
             chrome.notifications.create({
               type: 'basic',
               iconUrl: 'icon.png',
@@ -20,9 +25,10 @@ chrome.tabs.onUpdated.addListener((tabId, changeInfo, tab) => {
               message: `Bij ${data.shop} krijg je nu €${data.amount} terug via EasyCashBack!`,
               priority: 2
             });
+            console.log("Notificatie verstuurd voor:", data.shop);
           }
         })
-        .catch(err => console.error("Kon geen data ophalen van Render:", err));
+        .catch(err => console.error("Fout bij ophalen van data:", err));
     }
   }
 });
