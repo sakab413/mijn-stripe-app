@@ -1,104 +1,28 @@
 <!DOCTYPE html>
-<html lang="nl">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Koppel je bank - EasyCashBack</title>
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            background-color: #f0f2f5; 
-            display: flex; justify-content: center; align-items: center; 
-            height: 100vh; margin: 0; 
-        }
-        .app-container {
-            background: white;
-            width: 100%;
-            max-width: 400px;
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            text-align: center;
-        }
-        h1 { font-size: 24px; font-weight: 800; color: #1a1a1a; margin-bottom: 8px; }
-        p { color: #666; font-size: 14px; margin-bottom: 30px; line-height: 1.4; }
-        
-        .bank-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
-        }
-        .bank-button {
-            border: 2px solid #f0f0f0;
-            background: white;
-            padding: 20px 10px;
-            border-radius: 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            font-weight: 600;
-            font-size: 14px;
-            color: #333;
-        }
-        .bank-button:hover {
-            border-color: #007bff;
-            background-color: #f8fbff;
-            transform: translateY(-3px);
-            box-shadow: 0 4px 12px rgba(0,123,255,0.1);
-        }
-        /* Logo simulaties */
-        .logo-circle {
-            width: 45px; height: 45px;
-            border-radius: 50%;
-            margin-bottom: 12px;
-            display: flex; align-items: center; justify-content: center;
-            color: white; font-size: 12px; font-weight: bold;
-        }
-        .ing { background: #ff6200; } /* ING Oranje */
-        .rabo { background: #000066; } /* Rabo Blauw */
-        .abn { background: #00665f; } /* ABN Groen */
-        .sns { background: #e30613; } /* SNS Rood */
-
-        .secure-tag {
-            margin-top: 30px;
-            font-size: 12px;
-            color: #999;
-            display: flex; align-items: center; justify-content: center;
-            gap: 5px;
-        }
+        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .bank { border: 2px solid #eee; padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.2s; font-weight: bold; }
+        .bank:hover { border-color: #007bff; transform: translateY(-3px); background: #f8fbff; }
+        .logo { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; }
+        .ing { background: #ff6200; } .rabo { background: #000066; } .abn { background: #00665f; } .sns { background: #e30613; }
     </style>
 </head>
 <body>
-
-<div class="app-container">
-    <h1>Koppel je bank</h1>
-    <p>Kies je bank om je transacties veilig te scannen op cashbacks.</p>
-
-    <div class="bank-grid">
-        <div class="bank-button" onclick="location.href='/bank-login/ING'">
-            <div class="logo-circle ing">ING</div>
-            ING
-        </div>
-        <div class="bank-button" onclick="location.href='/bank-login/Rabobank'">
-            <div class="logo-circle rabo">Rabo</div>
-            Rabobank
-        </div>
-        <div class="bank-button" onclick="location.href='/bank-login/ABN-AMRO'">
-            <div class="logo-circle abn">ABN</div>
-            ABN AMRO
-        </div>
-        <div class="bank-button" onclick="location.href='/bank-login/SNS'">
-            <div class="logo-circle sns">SNS</div>
-            SNS Bank
+    <div class="container">
+        <h2>Kies je bank</h2>
+        <p style="font-size: 14px; color: #666;">Beveiligde koppeling via Open Banking</p>
+        <div class="grid">
+            <div class="bank" onclick="location.href='/bank-login/ING'"><div class="logo ing">ING</div>ING</div>
+            <div class="bank" onclick="location.href='/bank-login/Rabobank'"><div class="logo rabo">Rabo</div>Rabobank</div>
+            <div class="bank" onclick="location.href='/bank-login/ABN-AMRO'"><div class="logo abn">ABN</div>ABN AMRO</div>
+            <div class="bank" onclick="location.href='/bank-login/SNS'"><div class="logo sns">SNS</div>SNS Bank</div>
         </div>
     </div>
-
-    <div class="secure-tag">
-        🔒 Beveiligd met 256-bit encryptie
-    </div>
-</div>
-
 </body>
 </html>
