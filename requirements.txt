@@ -1,3 +1,5 @@
 flask
-stripe
+nordigen
 gunicorn
+stripe
+requests
