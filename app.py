@@ -1,58 +1,68 @@
 import os
-from flask import Flask, render_template, redirect, jsonify
+from flask import Flask, render_template, redirect, jsonify, request
 from nordigen import NordigenClient
 
 app = Flask(__name__)
 
-# Config: Zet deze in Render Environment Variables!
-client = NordigenClient(
-    secret_id=os.environ.get('NORDIGEN_ID'),
-    secret_key=os.environ.get('NORDIGEN_KEY')
-)
+# Haal keys uit Render Environment Variables
+NORDIGEN_ID = os.environ.get('NORDIGEN_ID')
+NORDIGEN_KEY = os.environ.get('NORDIGEN_KEY')
 
-# Lijst met winkels waar je cashback op geeft
-CASHBACK_SHOPS = {
-    "BOL.COM": 0.05,    # 5%
-    "COOLBLUE": 0.03,   # 3%
-    "NIKE": 0.10,       # 10%
-    "ZALANDO": 0.07     # 7%
+# Initialiseer de Bank API Client
+client = NordigenClient(secret_id=NORDIGEN_ID, secret_key=NORDIGEN_KEY)
+
+# Winkels waar we cashback op geven
+CASHBACK_RULES = {
+    "NIKE": 0.10, 
+    "BOL.COM": 0.05, 
+    "AMAZON": 0.05, 
+    "COOLBLUE": 0.03
 }
 
-@app.route('/sync-bank')
-def sync_bank():
-    """Haalt de echte transacties op en checkt op matches"""
-    try:
-        # In een echte demo gebruik je de REQUISITION_ID van de gekoppelde bank
-        # Voor nu halen we de lijst op (via de Nordigen Sandbox voor je presentatie)
-        account_id = os.environ.get('BANK_ACCOUNT_ID')
-        transactions = client.account(account_id).get_transactions()
-        
-        found_cashbacks = []
-        
-        # Loop door alle boekingen van de bank
-        for tx in transactions['booked']:
-            omschrijving = tx.get('remittanceInformationUnstructured', '').upper()
-            bedrag = float(tx['transactionAmount']['amount'])
-            
-            # Check of de winkel in onze lijst staat
-            for shop, rate in CASHBACK_SHOPS.items():
-                if shop in omschrijving:
-                    cashback_verdiend = abs(bedrag) * rate
-                    found_cashbacks.append({
-                        "winkel": shop,
-                        "uitgave": bedrag,
-                        "cashback": round(cashback_verdiend, 2)
-                    })
-        
-        return jsonify({
-            "status": "success",
-            "gevonden_deals": found_cashbacks
-        })
-    except Exception as e:
-        return jsonify({"status": "error", "message": str(e)})
+@app.route('/')
+def index():
+    return render_template('index.html')
 
-# Route om de bank-koppeling te starten
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 @app.route('/connect-bank')
 def connect_bank():
-    # ... (code uit vorig bericht om link naar bank te maken)
-    pass
+    """Start de officiële bankkoppeling via GoCardless Sandbox"""
+    client.generate_token()
+    # Gebruik de Sandbox bank 'SANDBOXFINANCE_SFIN0000' voor de demo
+    init = client.initialize_session(
+        institution_id='SANDBOXFINANCE_SFIN0000',
+        redirect_url=f"{request.host_url.rstrip('/')}/bank-callback",
+        reference="user-unique-session-123"
+    )
+    return redirect(init.link)
+
+@app.route('/bank-callback')
+def bank_callback():
+    """Na het inloggen bij de bank sturen we de gebruiker naar hun dashboard"""
+    return redirect('/dashboard')
+
+@app.route('/api/check-cashback')
+def check_cashback():
+    """API die de 'echte' transacties simuleert voor de demo"""
+    mock_transactions = [
+        {"vendor": "NIKE ONLINE STORE", "amount": -89.99},
+        {"vendor": "BOL.COM BV", "amount": -45.00}
+    ]
+    
+    found_deals = []
+    for tx in mock_transactions:
+        for shop, rate in CASHBACK_RULES.items():
+            if shop in tx['vendor'].upper():
+                found_deals.append({
+                    "shop": shop,
+                    "purchase_amount": abs(tx['amount']),
+                    "cashback": round(abs(tx['amount']) * rate, 2)
+                })
+    
+    return jsonify({"deals": found_deals})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=int(os.environ.get('PORT', 5000)))
