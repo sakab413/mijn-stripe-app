@@ -1,0 +1,8 @@
+{
+  "manifest_version": 3,
+  "name": "EasyCashBack Notifier",
+  "version": "1.0",
+  "permissions": ["notifications", "alarms"],
+  "background": { "service_worker": "background.js" },
+  "host_permissions": ["https://*.onrender.com/*"]
+}
