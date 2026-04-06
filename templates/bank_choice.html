@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Koppel je bank</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding: 50px; }
+        .bank-card { border: 1px solid #ddd; padding: 20px; margin: 10px; display: inline-block; width: 150px; cursor: pointer; border-radius: 10px; }
+        .bank-card:hover { border-color: #007bff; background: #f0f7ff; }
+    </style>
+</head>
+<body>
+    <h1>Kies je bank</h1>
+    <div class="bank-card" onclick="location.href='/bank-login/ING'"><b>ING</b></div>
+    <div class="bank-card" onclick="location.href='/bank-login/Rabobank'"><b>Rabobank</b></div>
+    <div class="bank-card" onclick="location.href='/bank-login/ABN-AMRO'"><b>ABN AMRO</b></div>
+</body>
+</html>
