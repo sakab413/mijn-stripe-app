@@ -1,40 +1,28 @@
 import os
-from flask import Flask, render_template, jsonify, redirect
+from flask import Flask, render_template, jsonify
+from supabase import create_client
 
 app = Flask(__name__)
 
-@app.route('/')
-def index():
-    # Dit is je landingspagina uit AI Studio
-    return render_template('index.html')
+# JOUW UNIEKE GEGEVENS
+SUPABASE_URL = "https://sbhyzbahdbjorxvvcbwm.supabase.co"
+SUPABASE_KEY = "sb_publishable_bAu8zg7A9y6MyT7D8QEQng_c6mr6RLV" # De key uit je screenshot
 
-@app.route('/connect-bank')
-def connect_bank():
-    # Stuurt de gebruiker naar het mooie bank-keuzemenu
-    return render_template('bank_choice.html')
-
-@app.route('/bank-login/<bank_name>')
-def bank_login(bank_name):
-    # Opent het inlogscherm voor de gekozen bank
-    return render_template('bank_login_sim.html', bank=bank_name)
-
-@app.route('/dashboard')
-def dashboard():
-    # Het eindstation: laat zien dat het gelukt is
-    return render_template('dashboard.html', success=True)
+supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 @app.route('/api/check-cashback')
 def check_cashback():
-    """DEZE ROUTE IS CRUCIAAL: Hier praat je extensie mee"""
-    return jsonify({
-        "status": "found",
-        "deals": [
-            {"shop": "NIKE", "purchase_amount": 120.00, "cashback": 12.00},
-            {"shop": "BOL.COM", "purchase_amount": 50.00, "cashback": 2.50}
-        ]
-    })
-
-if __name__ == '__main__':
-    # Zorgt dat Render de app kan starten op de juiste poort
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port)
+    # Deze functie haalt de data echt uit de 'cashbacks' tabel die je hebt gemaakt
+    try:
+        response = supabase.table("cashbacks").select("*").execute()
+        if response.data:
+            # We sturen de eerste deal (bijv. Nike) naar de extensie
+            return jsonify({
+                "status": "found",
+                "shop": response.data[0]['shop_name'],
+                "amount": response.data[0]['amount']
+            })
+    except Exception as e:
+        print(f"Error: {e}")
+    
+    return jsonify({"status": "none"})
