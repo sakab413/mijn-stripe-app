@@ -1,27 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Koppel je bank - EasyCashBack</title>
-    <style>
-        body { font-family: sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 8px 30px rgba(0,0,0,0.1); width: 350px; text-align: center; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .bank { border: 2px solid #eee; padding: 15px; border-radius: 12px; cursor: pointer; transition: 0.2s; font-weight: bold; }
-        .bank:hover { border-color: #007bff; transform: translateY(-3px); background: #f8fbff; }
-        .logo { width: 40px; height: 40px; border-radius: 50%; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; color: white; font-size: 10px; }
-        .ing { background: #ff6200; } .rabo { background: #000066; } .abn { background: #00665f; } .sns { background: #e30613; }
-    </style>
+    <title>Kies je bank | EasyCashBack</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <div class="container">
-        <h2>Kies je bank</h2>
-        <p style="font-size: 14px; color: #666;">Beveiligde koppeling via Open Banking</p>
-        <div class="grid">
-            <div class="bank" onclick="location.href='/bank-login/ING'"><div class="logo ing">ING</div>ING</div>
-            <div class="bank" onclick="location.href='/bank-login/Rabobank'"><div class="logo rabo">Rabo</div>Rabobank</div>
-            <div class="bank" onclick="location.href='/bank-login/ABN-AMRO'"><div class="logo abn">ABN</div>ABN AMRO</div>
-            <div class="bank" onclick="location.href='/bank-login/SNS'"><div class="logo sns">SNS</div>SNS Bank</div>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-10 rounded-2xl shadow-xl max-w-md w-full text-center">
+        <h2 class="text-2xl font-bold mb-2">Selecteer je bank</h2>
+        <p class="text-gray-500 mb-8 text-sm">Veilige verbinding via Nordigen Open Banking API</p>
+        
+        <div class="space-y-4">
+            <button onclick="location.href='/bank-login-sim'" class="w-full border p-4 rounded-xl flex items-center justify-between hover:bg-gray-50 transition font-medium">
+                ING <span>→</span>
+            </button>
+            <button onclick="location.href='/bank-login-sim'" class="w-full border p-4 rounded-xl flex items-center justify-between hover:bg-gray-50 transition font-medium">
+                Rabobank <span>→</span>
+            </button>
+            <button onclick="location.href='/bank-login-sim'" class="w-full border p-4 rounded-xl flex items-center justify-between hover:bg-gray-50 transition font-medium">
+                ABN AMRO <span>→</span>
+            </button>
         </div>
     </div>
 </body>
