@@ -4,43 +4,61 @@ from supabase import create_client
 
 app = Flask(__name__)
 
-# --- CONFIGURATIE (GEBRUIK JOUW EIGEN CODES) ---
+# --- CONFIGURATIE ---
 SUPABASE_URL = "https://sbhyzbahdbjorxvvcbwm.supabase.co"
-SUPABASE_KEY = "sb_publishable_bAu8zg7A9y6MyT7D8QEQng_c6mr6RLV" # Plak hier die lange code uit je screenshot
-supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+# Let op: Gebruik de Anon Key met de juiste hoofdletters (QEQng)
+SUPABASE_KEY = "sb_publishable_bAu8zg7A9y6MyT7D8QEQng_c6mr6RLV"
 
-# --- ROUTES VOOR JE WEBSITE ---
+try:
+    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+except Exception as e:
+    print(f"Supabase connectie fout: {e}")
+
+# --- ROUTES ---
 
 @app.route('/')
 def index():
-    # De landingspagina (je index.html moet in de map 'templates' staan)
-    return render_template('index.html')
-
-@app.route('/dashboard')
-def dashboard():
-    # Het dashboard waar de gebruiker zijn saldo ziet
-    return render_template('dashboard.html')
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        return f"Fout: index.html niet gevonden in de map templates. ({e})"
 
 @app.route('/connect-bank')
 def connect_bank():
-    # DIT IS DE OPLOSSING VOOR JE ERROR: De pagina om de bank te koppelen
-    return render_template('connect_bank.html')
+    try:
+        # Dit is de pagina waar je logs over struikelden
+        return render_template('bank_choice.html')
+    except Exception as e:
+        return f"Fout: bank_choice.html niet gevonden in de map templates. ({e})"
 
-# --- API VOOR DE DATABASE (EIS VOOR CIJFER) ---
+@app.route('/bank-login-sim')
+def bank_login_sim():
+    try:
+        return render_template('bank_login_sim.html')
+    except Exception as e:
+        return f"Fout: bank_login_sim.html niet gevonden. ({e})"
 
+@app.route('/dashboard')
+def dashboard():
+    try:
+        return render_template('dashboard.html')
+    except Exception as e:
+        return f"Fout: dashboard.html niet gevonden. ({e})"
+
+# --- API VOOR JE DATABASE ---
 @app.route('/api/check-cashback')
 def check_cashback():
-    # Haalt de data op uit de Supabase tabel 'cashbacks'
     try:
+        # We halen data op uit de tabel 'cashbacks'
         response = supabase.table("cashbacks").select("*").execute()
-        if response.data:
+        if hasattr(response, 'data') and response.data:
             return jsonify({
                 "status": "found",
-                "shop": response.data[0]['shop_name'],
-                "amount": response.data[0]['amount']
+                "shop": response.data[0].get('shop_name', 'Onbekende Shop'),
+                "amount": response.data[0].get('amount', '0.00')
             })
     except Exception as e:
-        print(f"Fout bij ophalen database: {e}")
+        print(f"API Error: {e}")
     
     return jsonify({"status": "none"})
 
