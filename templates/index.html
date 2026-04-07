@@ -11,55 +11,52 @@
 <body class="bg-slate-50 min-h-screen flex items-center justify-center p-6">
 
     <div id="content-wrapper" class="max-w-4xl w-full">
-        
         <div class="text-center mb-12">
             <h1 class="text-4xl font-black tracking-tight text-slate-900 mb-2">Configureer EasyCashBack</h1>
             <p class="text-slate-500">Voltooi de activatie om direct te starten met besparen.</p>
         </div>
 
         <div class="grid md:grid-cols-2 gap-8">
-            
-            <div class="bg-white p-10 rounded-[3rem] shadow-xl shadow-slate-200/50 border border-slate-100 text-center flex flex-col justify-between transition-all hover:shadow-2xl">
+            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 text-center flex flex-col justify-between transition-all hover:shadow-2xl">
                 <div>
                     <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
                     </div>
-                    <h2 class="text-2xl font-black mb-4">Bankrekening</h2>
+                    <h2 class="text-2xl font-black mb-4 italic">Bankrekening</h2>
                     <p class="text-slate-500 text-sm mb-8 leading-relaxed">Koppel je rekening voor automatische cashback uitbetalingen.</p>
                 </div>
-                <button onclick="startBankFlow()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-emerald-600 transition shadow-lg">
-                    Inloggen bij bank
-                </button>
+                <button onclick="startBankFlow()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-emerald-600 transition shadow-lg">Inloggen bij bank</button>
             </div>
 
-            <div class="bg-white p-10 rounded-[3rem] shadow-xl shadow-slate-200/50 border border-slate-100 text-center flex flex-col justify-between transition-all hover:shadow-2xl">
+            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 text-center flex flex-col justify-between transition-all hover:shadow-2xl">
                 <div>
                     <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
-                        </svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
                     </div>
-                    <h2 class="text-2xl font-black mb-4">Browser Extensie</h2>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Installeer de hulp om deals te herkennen tijdens het browsen.</p>
+                    <h2 class="text-2xl font-black mb-4 italic">Browser Extensie</h2>
+                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Download de browserhulp om deals direct te activeren.</p>
                 </div>
-                <button onclick="downloadAndReturn()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-100">
-                    Extensie activeren
-                </button>
+                <button onclick="downloadAndReturn()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-100">Extensie activeren</button>
             </div>
         </div>
     </div>
 
     <div id="bank-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-6 z-50">
-        <div id="modal-content" class="bg-white max-w-sm w-full p-10 rounded-[3rem] text-center shadow-2xl">
-            <h3 class="text-2xl font-black mb-8 italic">Kies je bank</h3>
-            <div class="grid grid-cols-1 gap-3 mb-8">
-                <button onclick="processLogin('ING')" class="w-full py-4 border-2 border-slate-100 rounded-2xl hover:border-emerald-500 hover:bg-emerald-50 font-black text-sm transition">ING</button>
-                <button onclick="processLogin('Rabobank')" class="w-full py-4 border-2 border-slate-100 rounded-2xl hover:border-emerald-500 hover:bg-emerald-50 font-black text-sm transition">RABOBANK</button>
-                <button onclick="processLogin('ABN AMRO')" class="w-full py-4 border-2 border-slate-100 rounded-2xl hover:border-emerald-500 hover:bg-emerald-50 font-black text-sm transition">ABN AMRO</button>
+        <div id="modal-content" class="bg-white max-w-sm w-full p-10 rounded-[3rem] text-left shadow-2xl">
+            <h3 class="text-2xl font-black mb-2 italic text-center text-slate-900">Inloggen bij Bank</h3>
+            <p class="text-slate-400 text-[10px] text-center mb-8 uppercase tracking-[0.2em] font-black">Secure Plaid Connection</p>
+            
+            <div id="login-fields">
+                <div class="mb-4">
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 ml-1">Gebruikersnaam</label>
+                    <input type="text" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-emerald-500 font-medium" placeholder="bijv. info@easycashback.nl">
+                </div>
+                <div class="mb-8">
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 ml-1">Wachtwoord</label>
+                    <input type="password" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-emerald-500 font-medium" placeholder="••••••••">
+                </div>
+                <button onclick="processLogin()" class="w-full py-5 bg-emerald-500 text-white rounded-[1.5rem] font-black text-lg hover:bg-emerald-600 transition shadow-lg shadow-emerald-100">Verifieer Account</button>
             </div>
-            <p class="text-[10px] text-slate-400 uppercase tracking-[0.2em] font-bold">Beveiligd via Plaid API</p>
         </div>
     </div>
 
@@ -68,28 +65,23 @@
             document.getElementById('bank-modal').classList.remove('hidden');
         }
 
-        function processLogin(bankName) {
+        function processLogin() {
             const content = document.getElementById('modal-content');
             content.innerHTML = `
-                <div class="py-8">
+                <div class="py-10 text-center">
                     <div class="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
-                    <h3 class="text-2xl font-black text-emerald-600 mb-2">Verbonden!</h3>
-                    <p class="text-slate-500 text-sm">Je ${bankName} account is gekoppeld.</p>
+                    <h3 class="text-2xl font-black text-emerald-600 mb-2 italic">Verbonden!</h3>
+                    <p class="text-slate-500 text-sm">Je rekening is succesvol gekoppeld.</p>
                 </div>
             `;
-            setTimeout(() => {
-                window.history.back();
-            }, 2500);
+            setTimeout(() => { window.history.back(); }, 2500);
         }
 
         function downloadAndReturn() {
-            // Start de download van het ZIP bestand
-            window.location.href = "/static/EasyCashBack_Extension.zip";
+            // Let op: hier staat nu de dubbele .zip.zip
+            window.location.href = "/static/EasyCashBack_Extension.zip.zip";
             
-            // Geef de browser even de tijd voor de download-popup en ga dan terug
-            setTimeout(() => {
-                window.history.back();
-            }, 1500);
+            setTimeout(() => { window.history.back(); }, 2000);
         }
     </script>
 </body>
