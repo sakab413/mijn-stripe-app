@@ -2,32 +2,31 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard | EasyCashBack</title>
+    <title>Mijn Dashboard | EasyCashBack</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 p-8">
-    <div class="max-w-4xl mx-auto text-center">
-        <h1 class="text-3xl font-bold mb-6 italic text-emerald-600">Jouw Cashback Overzicht</h1>
+<body class="bg-slate-50 p-10">
+    <div class="max-w-2xl mx-auto">
+        <h1 class="text-3xl font-black mb-10 text-slate-800">Welkom terug 👋</h1>
         
-        <div class="bg-white p-8 rounded-2xl shadow-md inline-block min-w-[300px]">
-            <p class="text-gray-400 uppercase text-xs font-bold tracking-widest">Laatste verdiende cashback</p>
-            <h2 id="shop-name" class="text-2xl font-bold mt-2 text-gray-800 italic text-emerald-600">Laden...</h2>
-            <p id="cashback-amount" class="text-4xl font-black mt-2">€ --</p>
+        <div class="bg-white p-8 rounded-[2rem] shadow-sm border border-slate-100">
+            <p class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-2">Exclusieve deal voor jou</p>
+            <h2 id="shop" class="text-4xl font-bold text-slate-900 mb-2">Laden...</h2>
+            <div class="flex items-baseline gap-2">
+                <span id="amount" class="text-5xl font-black text-emerald-600">€ --</span>
+                <span class="text-slate-400 font-medium">cashback beschikbaar</span>
+            </div>
+            <hr class="my-8 border-slate-50">
+            <p class="text-sm text-slate-500">Deze aanbieding is gebaseerd op je recente banktransacties en is 24 uur geldig.</p>
         </div>
     </div>
-
     <script>
-        fetch('/api/check-cashback')
-            .then(res => res.json())
-            .then(data => {
-                if(data.status === 'found') {
-                    document.getElementById('shop-name').innerText = data.shop;
-                    document.getElementById('cashback-amount').innerText = "€ " + data.amount;
-                } else {
-                    document.getElementById('shop-name').innerText = "Nog geen data";
-                }
-            })
-            .catch(err => console.error("Fout bij ophalen API"));
+        fetch('/api/check-cashback').then(r=>r.json()).then(d=>{
+            if(d.status==='found'){
+                document.getElementById('shop').innerText = d.shop;
+                document.getElementById('amount').innerText = '€ ' + d.amount;
+            }
+        });
     </script>
 </body>
 </html>
