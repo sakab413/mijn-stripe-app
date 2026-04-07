@@ -2,20 +2,25 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>EasyCashBack | Slimmer Winkelen</title>
+    <title>EasyCashBack | Geld terug terwijl je shopt</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 text-gray-900 font-sans">
+<body class="bg-slate-50 font-sans text-slate-900">
     <nav class="p-6 flex justify-between items-center max-w-6xl mx-auto">
-        <h1 class="text-2xl font-bold text-emerald-600">EasyCashBack.</h1>
+        <h1 class="text-2xl font-black text-emerald-600 italic tracking-tighter">EasyCashBack</h1>
+        <a href="/connect-bank" class="bg-emerald-600 text-white px-6 py-2 rounded-full font-bold hover:bg-emerald-700 transition">Mijn Dashboard</a>
     </nav>
-    <main class="max-w-4xl mx-auto text-center py-20 px-6">
-        <h2 class="text-5xl font-extrabold mb-6">Krijg automatisch geld terug op al je aankopen.</h2>
-        <p class="text-xl text-gray-600 mb-10">Koppel veilig je bank en wij regelen de rest. Geen bonnetjes, geen gedoe.</p>
-        <a href="/connect-bank" class="bg-emerald-600 text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-emerald-700 transition shadow-lg">
-            Koppel Bankrekening
-        </a>
-    </main>
+
+    <header class="max-w-6xl mx-auto px-6 py-24 text-center">
+        <h2 class="text-6xl font-extrabold mb-6 leading-tight">Verdien cashback op <br><span class="text-emerald-600">automatische piloot.</span></h2>
+        <p class="text-xl text-slate-500 mb-10 max-w-2xl mx-auto">Koppel je bank, installeer onze extensie en zie hoe het geld vanzelf binnenstroomt terwijl je shopt bij je favoriete merken.</p>
+        
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <a href="/connect-bank" class="bg-slate-900 text-white px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition shadow-xl">Start Nu Gratis</a>
+            <a href="#" onclick="alert('Demo: De extensie wordt nu geladen via je lokale bestanden.')" class="bg-white border border-slate-200 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-slate-50 transition flex items-center gap-2">
+                <img src="https://www.google.com/chrome/static/images/chrome-logo.svg" class="w-5 h-5"> Download Extensie
+            </a>
+        </div>
+    </header>
 </body>
 </html>
