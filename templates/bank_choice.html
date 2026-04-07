@@ -2,24 +2,42 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Kies je bank | EasyCashBack</title>
+    <title>Koppel je Bank | EasyCashBack</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>.step { display: none; } .step.active { display: block; }</style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-10 rounded-2xl shadow-xl max-w-md w-full text-center">
-        <h2 class="text-2xl font-bold mb-2">Selecteer je bank</h2>
-        <p class="text-gray-500 mb-8 text-sm">Veilige verbinding via Nordigen Open Banking API</p>
-        
-        <div class="space-y-4">
-            <a href="/bank-login-sim" class="block w-full border p-4 rounded-xl flex items-center justify-between hover:bg-gray-50 transition font-medium">
-                ING <span>→</span>
-            </a>
-            <a href="/bank-login-sim" class="block w-full border p-4 rounded-xl flex items-center justify-between hover:bg-gray-50 transition font-medium">
-                Rabobank <span>→</span>
-            </a>
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white max-w-md w-full rounded-[2.5rem] shadow-2xl overflow-hidden">
+        <div id="progress" class="h-1.5 bg-emerald-500 transition-all duration-700" style="width: 33%"></div>
+        <div class="p-10">
+            <div id="step1" class="step active">
+                <h2 class="text-2xl font-bold mb-2">Kies je bank</h2>
+                <p class="text-slate-400 mb-8 text-sm">Selecteer uw bank om veilig te koppelen via PSD2.</p>
+                <div class="space-y-3">
+                    <button onclick="next(2)" class="w-full text-left p-5 border border-slate-100 rounded-2xl hover:bg-slate-50 font-bold transition">ING Bank</button>
+                    <button onclick="next(2)" class="w-full text-left p-5 border border-slate-100 rounded-2xl hover:bg-slate-50 font-bold transition">Rabobank</button>
+                </div>
+            </div>
+            <div id="step2" class="step">
+                <h2 class="text-2xl font-bold mb-6">Inloggen</h2>
+                <input type="text" placeholder="Rekeningnummer" class="w-full p-4 bg-slate-50 rounded-xl mb-4 outline-none">
+                <input type="password" placeholder="Code" class="w-full p-4 bg-slate-50 rounded-xl mb-6 outline-none">
+                <button onclick="next(3)" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold shadow-lg shadow-emerald-200">Bevestig Koppeling</button>
+            </div>
+            <div id="step3" class="step text-center">
+                <div class="text-5xl mb-4 animate-bounce text-emerald-500">✓</div>
+                <h2 class="text-2xl font-bold mb-2">Gelukt!</h2>
+                <p class="text-slate-400">U wordt nu veilig doorgestuurd...</p>
+            </div>
         </div>
-        <br>
-        <a href="/" class="text-sm text-gray-400 underline">Terug naar home</a>
     </div>
+    <script>
+        function next(s) {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step'+s).classList.add('active');
+            document.getElementById('progress').style.width = (s*33)+'%';
+            if(s===3) setTimeout(() => window.location.href='/dashboard', 2000);
+        }
+    </script>
 </body>
 </html>
