@@ -2,44 +2,32 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Mijn Dashboard | EasyCashBack</title>
+    <title>Dashboard | EasyCashBack</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 p-8">
-    <div class="max-w-4xl mx-auto">
-        <header class="flex justify-between items-center mb-10">
-            <h1 class="text-3xl font-bold text-gray-800">Welkom terug, Gebruiker</h1>
-            <span class="bg-emerald-100 text-emerald-700 px-4 py-1 rounded-full text-sm font-semibold italic">Bank Gekoppeld ✅</span>
-        </header>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                <p class="text-gray-500 text-sm uppercase font-bold tracking-wider">Totaal Bespaard</p>
-                <h2 class="text-5xl font-black text-emerald-600 mt-2">€ 14,50</h2>
-            </div>
-
-            <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                <p class="text-gray-500 text-sm uppercase font-bold tracking-wider">Laatste Cashback</p>
-                <div class="mt-4">
-                    <h3 id="shop-name" class="text-2xl font-bold text-gray-800 italic">Laden...</h3>
-                    <p id="cashback-amount" class="text-emerald-500 font-semibold text-lg"></p>
-                </div>
-            </div>
+    <div class="max-w-4xl mx-auto text-center">
+        <h1 class="text-3xl font-bold mb-6 italic text-emerald-600">Jouw Cashback Overzicht</h1>
+        
+        <div class="bg-white p-8 rounded-2xl shadow-md inline-block min-w-[300px]">
+            <p class="text-gray-400 uppercase text-xs font-bold tracking-widest">Laatste verdiende cashback</p>
+            <h2 id="shop-name" class="text-2xl font-bold mt-2 text-gray-800 italic text-emerald-600">Laden...</h2>
+            <p id="cashback-amount" class="text-4xl font-black mt-2">€ --</p>
         </div>
     </div>
 
     <script>
-        // LIVE DATA OPHALEN UIT SUPABASE
         fetch('/api/check-cashback')
             .then(res => res.json())
             .then(data => {
                 if(data.status === 'found') {
                     document.getElementById('shop-name').innerText = data.shop;
-                    document.getElementById('cashback-amount').innerText = "+ € " + data.amount;
+                    document.getElementById('cashback-amount').innerText = "€ " + data.amount;
                 } else {
                     document.getElementById('shop-name').innerText = "Nog geen data";
                 }
-            });
+            })
+            .catch(err => console.error("Fout bij ophalen API"));
     </script>
 </body>
 </html>
